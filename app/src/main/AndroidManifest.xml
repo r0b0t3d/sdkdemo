@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.wosmart.sdkdemo">
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".ScanActivity" />
+
+        <activity android:name=".FunctionActivity" />
+
+        <activity android:name=".MacAddressActivity" />
+
+        <activity android:name=".LoginActivity" />
+
+        <activity android:name=".PwdActivity" />
+
+        <activity android:name=".TimeActivity" />
+
+        <activity android:name=".UserActivity" />
+
+        <activity android:name=".ClockActivity" />
+
+        <activity android:name=".CallActivity" />
+
+        <activity android:name=".NotifyActivity" />
+
+        <activity android:name=".CameraActivity" />
+
+        <activity android:name=".SedentaryActivity" />
+
+        <activity android:name=".HomeUiActivity" />
+
+        <activity android:name=".DisturbActivity" />
+
+        <activity android:name=".FindBandActivity" />
+
+        <activity android:name=".FindPhoneActivity" />
+
+        <activity android:name=".BatteryActivity" />
+
+        <activity android:name=".SportActivity" />
+
+        <activity android:name=".ResetActivity" />
+
+        <activity android:name=".NameActivity" />
+
+        <activity android:name=".MotorActivity" />
+
+        <activity android:name=".SyncDataActivity" />
+
+        <activity android:name=".StepActivity" />
+
+        <activity android:name=".SleepActivity" />
+
+        <activity android:name=".HrActivity" />
+
+        <activity android:name=".BpActivity" />
+
+        <service android:name=".DfuService" />
+
+        <activity android:name=".UpgradeActivity" />
+
+        <activity android:name=".UiUpgradeActivity" />
+
+        <activity android:name=".LanguageActivity" />
+
+        <activity android:name=".UnitActivity" />
+
+        <activity android:name=".HrDetectActivity" />
+
+        <activity android:name=".LightControlActivity" />
+
+        <activity android:name=".NotifySwitchActivity" />
+
+        <activity android:name=".DeviceInfoActivity" />
+
+        <activity android:name=".WeatherActivity" />
+
+        <activity android:name=".HrReminderActivity" />
+
+        <activity android:name=".StepWatchActivity" />
+
+        <activity android:name=".TimerActivity" />
+
+        <activity android:name=".StepGoalActivity" />
+
+        <activity android:name=".ClassBtActivity" />
+
+    </application>
+
+</manifest>

@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        app:navigationIcon="@mipmap/ic_back"
+        app:title=" ">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/app_clock"
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp" />
+
+    </android.support.v7.widget.Toolbar>
+
+
+    <RelativeLayout
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+        <RadioGroup
+            android:id="@+id/rg_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rb_open"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="状态 开" />
+
+            <RadioButton
+                android:id="@+id/rb_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:text="状态 关" />
+
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/et_hour"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rg_status"
+            android:hint="时"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/et_minute"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/et_hour"
+            android:hint="分"
+            android:inputType="number" />
+
+        <RadioGroup
+            android:id="@+id/rg_repeat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/et_minute"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rb_open2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="重复 开" />
+
+            <RadioButton
+                android:id="@+id/rb_close2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:text="重复 关"
+
+                />
+
+        </RadioGroup>
+
+        <LinearLayout
+            android:id="@+id/ll_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rg_repeat"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/cb_sunday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="星期天" />
+
+            <CheckBox
+                android:id="@+id/cb_monday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:checked="true"
+                android:text="星期一" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ll_1"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/cb_tuesday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="星期二" />
+
+            <CheckBox
+                android:id="@+id/cb_wednesday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:text="星期三" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ll_2"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/cb_thursday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="星期四" />
+
+            <CheckBox
+                android:id="@+id/cb_friday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:text="星期五" />
+
+        </LinearLayout>
+
+        <CheckBox
+            android:id="@+id/cb_saturday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ll_3"
+            android:text="星期六" />
+
+        <EditText
+            android:id="@+id/et_event_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/cb_saturday"
+            android:hint="编号 0闹钟 1-20事件"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/et_event_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/et_event_id"
+            android:hint="事件描述" />
+
+        <Button
+            android:id="@+id/btn_send"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/et_event_content"
+            android:text="同步" />
+
+    </RelativeLayout>
+
+</RelativeLayout>
