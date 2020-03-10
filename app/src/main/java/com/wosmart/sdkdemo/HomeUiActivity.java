@@ -3,18 +3,18 @@ package com.wosmart.sdkdemo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.wosmart.bandlibrary.bluetooth.connect.response.BleWriteResponse;
-import com.wosmart.bandlibrary.protocol.WoBtOperationManager;
-import com.wosmart.bandlibrary.protocol.listener.ReadHomeUiListener;
-import com.wosmart.bandlibrary.protocol.listener.SendShortListener;
-import com.wosmart.bandlibrary.protocol.model.data.HomeUiData;
 import com.wosmart.sdkdemo.Common.BaseActivity;
+import com.wosmart.ukprotocollibary.WristbandManager;
+import com.wosmart.ukprotocollibary.WristbandManagerCallback;
+import com.wosmart.ukprotocollibary.applicationlayer.ApplicationLayerScreenStylePacket;
 
 public class HomeUiActivity extends BaseActivity implements View.OnClickListener {
+    private String tag = "HomeUiActivity";
     private Toolbar toolbar;
     private EditText et_ui;
     private Button btn_read;
@@ -37,7 +37,13 @@ public class HomeUiActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void initData() {
-
+        WristbandManager.getInstance(this).registerCallback(new WristbandManagerCallback() {
+            @Override
+            public void onHomePager(ApplicationLayerScreenStylePacket packet) {
+                super.onHomePager(packet);
+                Log.i(tag, "home ui = " + packet.toString());
+            }
+        });
     }
 
     private void addListener() {
@@ -63,47 +69,25 @@ public class HomeUiActivity extends BaseActivity implements View.OnClickListener
                     int index = Integer.parseInt(indexStr);
                     setUI(index);
                 } else {
-                    showToast("请输入Ui序号");
+                    showToast(getString(R.string.app_home_ui_hint));
                 }
                 break;
         }
     }
 
     private void readHomeUI() {
-        WoBtOperationManager.getInstance(this).readHomeUI(new BleWriteResponse() {
-            @Override
-            public void onResponse(int code) {
-
-            }
-        }, new ReadHomeUiListener() {
-            @Override
-            public void onReadFail() {
-                showToast("读取失败");
-            }
-
-            @Override
-            public void onReadSuccess(HomeUiData homeUiData) {
-                showToast("读取成功 " + homeUiData.toString());
-            }
-        });
+        if (WristbandManager.getInstance(this).requestHomePager()) {
+            showToast(getString(R.string.app_success));
+        } else {
+            showToast(getString(R.string.app_fail));
+        }
     }
 
     private void setUI(int index) {
-        WoBtOperationManager.getInstance(this).setHomeUI(index, new BleWriteResponse() {
-            @Override
-            public void onResponse(int code) {
-
-            }
-        }, new SendShortListener() {
-            @Override
-            public void onSendFail() {
-                showToast("设置失败");
-            }
-
-            @Override
-            public void onSendSuccess() {
-                showToast("设置成功");
-            }
-        });
+        if (WristbandManager.getInstance(this).settingHomePager(index)) {
+            showToast(getString(R.string.app_success));
+        } else {
+            showToast(getString(R.string.app_fail));
+        }
     }
 }

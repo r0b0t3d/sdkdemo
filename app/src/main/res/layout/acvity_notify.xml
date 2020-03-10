@@ -33,7 +33,7 @@
             android:id="@+id/et_type"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="通知类型"
+            android:hint="@string/app_notify_type"
             android:inputType="number" />
 
         <EditText
@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/et_type"
             android:gravity="start"
-            android:hint="通知内容"
+            android:hint="@string/app_notify_content"
             android:lines="5" />
 
         <Button
@@ -50,7 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/et_content"
-            android:text="同步通知" />
+            android:text="@string/app_send" />
     </RelativeLayout>
 
 </RelativeLayout>

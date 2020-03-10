@@ -3,22 +3,27 @@ package com.wosmart.sdkdemo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 
-import com.wosmart.bandlibrary.bluetooth.connect.response.BleWriteResponse;
-import com.wosmart.bandlibrary.protocol.WoBtOperationManager;
-import com.wosmart.bandlibrary.protocol.listener.HistorySleepListener;
-import com.wosmart.bandlibrary.protocol.listener.SendShortListener;
-import com.wosmart.bandlibrary.protocol.model.data.SleepData;
 import com.wosmart.sdkdemo.Common.BaseActivity;
+import com.wosmart.ukprotocollibary.WristbandManager;
+import com.wosmart.ukprotocollibary.WristbandManagerCallback;
+import com.wosmart.ukprotocollibary.applicationlayer.ApplicationLayerHrpItemPacket;
+import com.wosmart.ukprotocollibary.applicationlayer.ApplicationLayerHrpPacket;
+import com.wosmart.ukprotocollibary.model.db.GlobalGreenDAO;
+import com.wosmart.ukprotocollibary.model.sleep.SleepData;
+import com.wosmart.ukprotocollibary.model.sleep.SleepSubData;
+
+import java.util.Calendar;
+import java.util.List;
 
 public class SleepActivity extends BaseActivity implements View.OnClickListener {
+    private String tag = "SleepActivity";
 
     private Toolbar toolbar;
-    private Button btn_create;
-    private EditText et_read_day;
+
     private Button btn_read_history;
 
     @Override
@@ -32,8 +37,6 @@ public class SleepActivity extends BaseActivity implements View.OnClickListener 
 
     private void initView() {
         toolbar = findViewById(R.id.toolbar);
-        btn_create = findViewById(R.id.btn_create);
-        et_read_day = findViewById(R.id.et_read_day);
         btn_read_history = findViewById(R.id.btn_read_history);
     }
 
@@ -48,68 +51,31 @@ public class SleepActivity extends BaseActivity implements View.OnClickListener 
                 finish();
             }
         });
-        btn_create.setOnClickListener(this);
         btn_read_history.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_create:
-                createHistory();
-                break;
             case R.id.btn_read_history:
-                String dayStr = et_read_day.getText().toString();
-                if (null != dayStr && !dayStr.isEmpty()) {
-                    int day = Integer.parseInt(dayStr);
-                    readHistory(day);
-                } else {
-                    showToast("请输入读取天数");
-                }
+                loadLocal();
                 break;
         }
     }
 
-    private void createHistory() {
-        WoBtOperationManager.getInstance(this).createHistorySleep(new BleWriteResponse() {
-            @Override
-            public void onResponse(int code) {
+    private void loadLocal() {
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH) + 1;
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-            }
-        }, new SendShortListener() {
-            @Override
-            public void onSendFail() {
-                showToast("创建失败");
-            }
+        List<SleepData> sleeps = GlobalGreenDAO.getInstance().loadSleepDataByDate(year, month, day);
 
-            @Override
-            public void onSendSuccess() {
-                showToast("创建成功");
+        if (null != sleeps) {
+            for (SleepData item : sleeps) {
+                Log.i(tag, "item = " + item.toString());
             }
-        });
+        }
     }
 
-    private void readHistory(int day) {
-        WoBtOperationManager.getInstance(this).readHistorySleep(day, new BleWriteResponse() {
-            @Override
-            public void onResponse(int code) {
-
-            }
-        }, new HistorySleepListener() {
-            @Override
-            public void onSleep(SleepData sleepData) {
-                showToast("读取历史睡眠 " + sleepData.toString());
-            }
-
-            @Override
-            public void onReadCompleted() {
-                showToast("读取历史睡眠完成");
-            }
-
-            @Override
-            public void onReadFail() {
-                showToast("读取历史睡眠失败");
-            }
-        });
-    }
 }

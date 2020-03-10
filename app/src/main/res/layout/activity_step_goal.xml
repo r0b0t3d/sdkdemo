@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/app_step_goal"
+            android:text="@string/app_goal_setting"
             android:textColor="@color/colorWhite"
             android:textSize="20sp" />
 
@@ -33,7 +33,7 @@
             android:id="@+id/et_step_goal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="目标步数"
+            android:hint="@string/app_step_goal"
             android:inputType="number" />
 
         <Button
@@ -41,14 +41,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/et_step_goal"
-            android:text="设置" />
+            android:text="@string/app_set" />
 
         <EditText
             android:id="@+id/et_sleep_goal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/btn_set"
-            android:hint="目标睡眠（分钟）"
+            android:hint="@string/app_sleep_goal"
             android:inputType="number" />
 
         <Button
@@ -56,7 +56,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/et_sleep_goal"
-            android:text="设置" />
+            android:text="@string/app_set" />
 
     </RelativeLayout>
 

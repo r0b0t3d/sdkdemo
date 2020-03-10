@@ -58,6 +58,8 @@ public class StepGoalActivity extends BaseActivity implements View.OnClickListen
                 if (null != goalStr) {
                     int goal = Integer.parseInt(goalStr);
                     setStepGoal(goal);
+                } else {
+                    showToast(getString(R.string.app_goal_hint_step));
                 }
                 break;
             case R.id.btn_set_sleep:
@@ -65,6 +67,8 @@ public class StepGoalActivity extends BaseActivity implements View.OnClickListen
                 if (null != goalStr2) {
                     int goal2 = Integer.parseInt(goalStr2);
                     setSleepGoal(goal2);
+                } else {
+                    showToast(getString(R.string.app_goal_hint_sleep));
                 }
                 break;
         }
@@ -72,17 +76,17 @@ public class StepGoalActivity extends BaseActivity implements View.OnClickListen
 
     private void setStepGoal(int goal) {
         if (WristbandManager.getInstance(this).setTargetStep(goal)) {
-            showToast("设置成功");
+            showToast(getString(R.string.app_success));
         } else {
-            showToast("设置失败");
+            showToast(getString(R.string.app_fail));
         }
     }
 
     private void setSleepGoal(int goal) {
         if (WristbandManager.getInstance(this).setTargetSleep(goal)) {
-            showToast("设置成功");
+            showToast(getString(R.string.app_success));
         } else {
-            showToast("设置失败");
+            showToast(getString(R.string.app_fail));
         }
     }
 }

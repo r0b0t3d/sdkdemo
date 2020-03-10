@@ -33,7 +33,7 @@
             android:id="@+id/btn_read"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="读取" />
+            android:text="@string/app_read" />
 
         <RadioGroup
             android:id="@+id/rg_status"
@@ -47,14 +47,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
-                android:text="开" />
+                android:text="@string/app_open" />
 
             <RadioButton
                 android:id="@+id/rb_close"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
-                android:text="关" />
+                android:text="@string/app_close" />
 
         </RadioGroup>
 
@@ -63,7 +63,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/rg_status"
-            android:hint="开始时"
+            android:hint="@string/app_start_hour"
             android:inputType="number" />
 
         <EditText
@@ -71,7 +71,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/et_start_hour"
-            android:hint="开始分"
+            android:hint="@string/app_start_minute"
             android:inputType="number" />
 
         <EditText
@@ -79,7 +79,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/et_start_minute"
-            android:hint="结束时"
+            android:hint="@string/app_end_hour"
             android:inputType="number" />
 
         <EditText
@@ -87,7 +87,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/et_end_hour"
-            android:hint="结束分"
+            android:hint="@string/app_end_minute"
             android:inputType="number" />
 
         <Button
@@ -95,7 +95,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/et_end_minute"
-            android:text="设置" />
+            android:text="@string/app_set" />
 
     </RelativeLayout>
 

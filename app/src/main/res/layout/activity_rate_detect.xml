@@ -33,7 +33,7 @@
             android:id="@+id/btn_read"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="读取" />
+            android:text="@string/app_read" />
 
         <RadioGroup
             android:id="@+id/rg_detect_status"
@@ -47,7 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
-                android:text="开" />
+                android:text="@string/app_open" />
 
             <RadioButton
                 android:id="@+id/rb_detect_close"
@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
                 android:checked="true"
-                android:text="关" />
+                android:text="@string/app_close" />
 
         </RadioGroup>
 
@@ -64,7 +64,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/rg_detect_status"
-            android:hint="检测周期"
+            android:hint="@string/app_measure_interval"
             android:inputType="number" />
 
         <Button
@@ -72,7 +72,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/et_interval"
-            android:text="设置" />
+            android:text="@string/app_set" />
 
     </RelativeLayout>
 

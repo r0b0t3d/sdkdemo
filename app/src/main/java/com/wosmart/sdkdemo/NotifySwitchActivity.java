@@ -12,7 +12,7 @@ import android.widget.Switch;
 import com.wosmart.sdkdemo.Common.BaseActivity;
 import com.wosmart.ukprotocollibary.WristbandManager;
 import com.wosmart.ukprotocollibary.WristbandManagerCallback;
-import com.wosmart.ukprotocollibary.model.data.ReminderFunction;
+import com.wosmart.ukprotocollibary.applicationlayer.ApplicationLayerNotifyPacket;
 import com.wosmart.ukprotocollibary.model.enums.NotifyType;
 
 public class NotifySwitchActivity extends BaseActivity implements View.OnClickListener {
@@ -83,11 +83,11 @@ public class NotifySwitchActivity extends BaseActivity implements View.OnClickLi
 
     private void initData() {
         WristbandManager.getInstance(this).registerCallback(new WristbandManagerCallback() {
+
             @Override
-            public void onNotifyModeSettingReceive(ReminderFunction reminderFunction) {
-                super.onNotifyModeSettingReceive(reminderFunction);
-                Log.i(tag, "reminderFunction = " + reminderFunction.toString());
-                showToast("reminderFunction : " + reminderFunction.toString());
+            public void onNotifyModeSettingReceive(ApplicationLayerNotifyPacket applicationLayerNotifyPacket) {
+                super.onNotifyModeSettingReceive(applicationLayerNotifyPacket);
+                Log.i(tag, "reminderFunction = " + applicationLayerNotifyPacket.toString());
             }
         });
     }
@@ -203,17 +203,17 @@ public class NotifySwitchActivity extends BaseActivity implements View.OnClickLi
 
     private void readNotifySwitch() {
         if (WristbandManager.getInstance(this).sendNotifyModeRequest()) {
-            showToast("查询通知开关成功 ");
+            showToast(getString(R.string.app_success));
         } else {
-            showToast("查询通知开关失败");
+            showToast(getString(R.string.app_fail));
         }
     }
 
     private void setNotifySwitch(NotifyType type, boolean isOpen) {
         if (WristbandManager.getInstance(this).setNotifyMode(type, isOpen)) {
-            showToast("设置通知开关成功");
+            showToast(getString(R.string.app_success));
         } else {
-            showToast("设置通知开关失败");
+            showToast(getString(R.string.app_fail));
         }
     }
 }

@@ -3,6 +3,7 @@ package com.wosmart.sdkdemo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,12 +14,20 @@ import com.wosmart.ukprotocollibary.WristbandManager;
 import com.wosmart.ukprotocollibary.WristbandManagerCallback;
 
 public class LightControlActivity extends BaseActivity implements View.OnClickListener {
+    private String tag = "LightControlActivity";
+
     private Toolbar toolbar;
+
     private Button btn_read_turn_wrist;
+
     private RadioGroup rg_turn_wrist;
+
     private Button btn_set_turn_wrist;
+
     private Button btn_read;
+
     private EditText et_light_time;
+
     private Button btn_set;
 
     @Override
@@ -45,13 +54,13 @@ public class LightControlActivity extends BaseActivity implements View.OnClickLi
             @Override
             public void onScreenLightDuration(int duration) {
                 super.onScreenLightDuration(duration);
-                showToast("duration : " + duration);
+                Log.i(tag, "duration : " + duration);
             }
 
             @Override
             public void onTurnOverWristSettingReceive(boolean mode) {
                 super.onTurnOverWristSettingReceive(mode);
-                showToast("turn wrist status : " + mode);
+                Log.i(tag, "turn wrist status : " + mode);
             }
         });
     }
@@ -88,7 +97,7 @@ public class LightControlActivity extends BaseActivity implements View.OnClickLi
                     int duration = Integer.parseInt(durationStr);
                     setScreenLight(duration);
                 } else {
-                    showToast("请输入亮屏时长");
+                    showToast(getString(R.string.app_light_duration_hint));
                 }
                 break;
         }
@@ -96,34 +105,34 @@ public class LightControlActivity extends BaseActivity implements View.OnClickLi
 
     private void readTurnWrist() {
         if (WristbandManager.getInstance(this).sendTurnOverWristRequest()) {
-            showToast("读取成功");
+            showToast(getString(R.string.app_success));
         } else {
-            showToast("读取失败");
+            showToast(getString(R.string.app_fail));
         }
     }
 
     private void setTurnWrist(boolean openFlag) {
         if (WristbandManager.getInstance(this).setTurnOverWrist(openFlag)) {
-            showToast("设置成功");
+            showToast(getString(R.string.app_success));
         } else {
-            showToast("设置失败");
+            showToast(getString(R.string.app_fail));
         }
     }
 
     private void readScreenLight() {
         if (WristbandManager.getInstance(this).sendScreenLightDurationReq()) {
-            showToast("读取成功");
+            showToast(getString(R.string.app_success));
         } else {
-            showToast("读取失败");
+            showToast(getString(R.string.app_fail));
         }
     }
 
 
     private void setScreenLight(int duration) {
         if (WristbandManager.getInstance(this).settingScreenLightDuration(duration)) {
-            showToast("设置成功");
+            showToast(getString(R.string.app_success));
         } else {
-            showToast("设置失败");
+            showToast(getString(R.string.app_fail));
         }
     }
 

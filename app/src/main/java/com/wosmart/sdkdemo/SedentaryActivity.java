@@ -46,10 +46,11 @@ public class SedentaryActivity extends BaseActivity implements View.OnClickListe
 
     private void initData() {
         WristbandManager.getInstance(this).registerCallback(new WristbandManagerCallback() {
+
             @Override
-            public void onLongSitSettingReceive(boolean openFlag) {
-                super.onLongSitSettingReceive(openFlag);
-                showToast("open flag :" + openFlag);
+            public void onLongSitSettingReceive(ApplicationLayerSitPacket packet) {
+                super.onLongSitSettingReceive(packet);
+                showToast("Sedentary :" + packet.toString());
             }
         });
     }
@@ -89,7 +90,7 @@ public class SedentaryActivity extends BaseActivity implements View.OnClickListe
                                     openFlag = true;
                                 }
                                 ApplicationLayerSitPacket sedentary = new ApplicationLayerSitPacket();
-                                sedentary.setmEnable(openFlag ? ApplicationLayerSitPacket.LONG_SIT_CONTROL_ENABLE : ApplicationLayerSitPacket.LONG_SIT_CONTROL_DISABLE);
+                                sedentary.setmEnable(openFlag);
                                 sedentary.setmThreshold(max);
                                 sedentary.setmNotifyTime(interval);
                                 sedentary.setmStartNotifyTime(startMinute);
@@ -98,16 +99,16 @@ public class SedentaryActivity extends BaseActivity implements View.OnClickListe
 
                                 setSedentary(sedentary);
                             } else {
-                                showToast("请输入间隔时间");
+                                showToast(getString(R.string.app_sedentary_hint_interval));
                             }
                         } else {
-                            showToast("请输入结束分钟");
+                            showToast(getString(R.string.app_sedentary_hint_end));
                         }
                     } else {
-                        showToast("请输入开始分钟");
+                        showToast(getString(R.string.app_sedentary_hint_start));
                     }
                 } else {
-                    showToast("请输入阀值");
+                    showToast(getString(R.string.app_sedentary_hint_max_value));
                 }
                 break;
         }
@@ -115,17 +116,17 @@ public class SedentaryActivity extends BaseActivity implements View.OnClickListe
 
     private void readSedentary() {
         if (WristbandManager.getInstance(this).sendLongSitRequest()) {
-            showToast("读取成功");
+            showToast(getString(R.string.app_success));
         } else {
-            showToast("读取失败");
+            showToast(getString(R.string.app_fail));
         }
     }
 
     private void setSedentary(ApplicationLayerSitPacket packet) {
         if (WristbandManager.getInstance(this).setLongSit(packet)) {
-            showToast("设置成功");
+            showToast(getString(R.string.app_success));
         } else {
-            showToast("设置失败");
+            showToast(getString(R.string.app_fail));
         }
     }
 }

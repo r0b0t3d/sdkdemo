@@ -11,8 +11,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-import com.wosmart.bandlibrary.bluetooth.search.SearchResult;
-import com.wosmart.bandlibrary.protocol.WoBtOperationManager;
 import com.wosmart.sdkdemo.Adapter.DeviceAdapter;
 import com.wosmart.sdkdemo.Common.BaseActivity;
 import com.wosmart.ukprotocollibary.WristbandManager;
@@ -79,6 +77,7 @@ public class ScanActivity extends BaseActivity {
         });
     }
 
+
     private void startScan() {
         WristbandManager.getInstance(this).startScan(new WristbandScanCallback() {
             @Override
@@ -113,17 +112,18 @@ public class ScanActivity extends BaseActivity {
     }
 
     private void stopScan() {
-        WoBtOperationManager.getInstance(this).stopScan();
+        WristbandManager.getInstance(this).stopScan();
     }
 
     private void connect(final String mac, final String name) {
-        WristbandManager.getInstance(this).connect(mac, new WristbandManagerCallback() {
+
+        WristbandManager.getInstance(this).registerCallback(new WristbandManagerCallback() {
             @Override
             public void onConnectionStateChange(boolean status) {
                 super.onConnectionStateChange(status);
                 if (status) {
                     dismissProgress();
-                    showToast("连接成功");
+                    showToast(getString(R.string.app_connect_success));
                     Intent intent = new Intent();
                     intent.putExtra("mac", mac);
                     intent.putExtra("name", name);
@@ -131,22 +131,23 @@ public class ScanActivity extends BaseActivity {
                     ScanActivity.this.finish();
                 } else {
                     dismissProgress();
-                    showToast("连接失败");
-                    disConnect(mac);
+                    showToast(getString(R.string.app_connect_fail));
+                    disConnect();
                 }
             }
 
             @Override
             public void onError(int error) {
                 super.onError(error);
-                showToast("出错了");
+                showToast(getString(R.string.app_error));
             }
         });
 
+        WristbandManager.getInstance(this).connect(mac);
 
     }
 
-    private void disConnect(String mac) {
+    private void disConnect() {
         WristbandManager.getInstance(this).close();
     }
 

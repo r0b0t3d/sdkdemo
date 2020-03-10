@@ -3,6 +3,7 @@ package com.wosmart.sdkdemo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,6 +15,8 @@ import com.wosmart.ukprotocollibary.WristbandManagerCallback;
 import com.wosmart.ukprotocollibary.applicationlayer.ApplicationLayerDisturbPacket;
 
 public class DisturbActivity extends BaseActivity implements View.OnClickListener {
+
+    private String tag = "DisturbActivity";
 
     private Toolbar toolbar;
 
@@ -53,10 +56,11 @@ public class DisturbActivity extends BaseActivity implements View.OnClickListene
 
     private void initData() {
         WristbandManager.getInstance(this).registerCallback(new WristbandManagerCallback() {
+
             @Override
-            public void onDisturb(boolean isOpen) {
-                super.onDisturb(isOpen);
-                showToast("isOpen : " + isOpen);
+            public void onDisturb(ApplicationLayerDisturbPacket packet) {
+                super.onDisturb(packet);
+                Log.i(tag, "disturb = " + packet.toString());
             }
         });
     }
@@ -106,35 +110,34 @@ public class DisturbActivity extends BaseActivity implements View.OnClickListene
                                 disturbData.setEndMinute(endMinute);
                                 setDisturb(disturbData);
                             } else {
-                                showToast("请输入结束分钟");
+                                showToast(getString(R.string.app_disturb_hint_end_minute));
                             }
                         } else {
-                            showToast("请输入结束小时");
+                            showToast(getString(R.string.app_disturb_hint_end_hour));
                         }
                     } else {
-                        showToast("请输入开始分钟");
+                        showToast(getString(R.string.app_disturb_hint_start_minute));
                     }
                 } else {
-                    showToast("请输入开始小时");
+                    showToast(getString(R.string.app_disturb_hint_start_hour));
                 }
-
                 break;
         }
     }
 
     private void readDisturb() {
         if (WristbandManager.getInstance(this).sendDisturbSettingReq()) {
-            showToast("读取成功");
+            showToast(getString(R.string.app_success));
         } else {
-            showToast("读取失败");
+            showToast(getString(R.string.app_fail));
         }
     }
 
     private void setDisturb(ApplicationLayerDisturbPacket disturbPacket) {
         if (WristbandManager.getInstance(this).settingDisturb(disturbPacket)) {
-            showToast("设置成功");
+            showToast(getString(R.string.app_success));
         } else {
-            showToast("设置失败");
+            showToast(getString(R.string.app_fail));
         }
     }
 

@@ -33,7 +33,7 @@
             android:id="@+id/btn_query_battery"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="查询电量" />
+            android:text="@string/app_battery" />
 
     </RelativeLayout>
 

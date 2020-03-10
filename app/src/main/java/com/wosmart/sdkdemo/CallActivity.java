@@ -3,16 +3,17 @@ package com.wosmart.sdkdemo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.wosmart.bandlibrary.protocol.model.data.CallMessage;
 import com.wosmart.sdkdemo.Common.BaseActivity;
 import com.wosmart.ukprotocollibary.WristbandManager;
 import com.wosmart.ukprotocollibary.WristbandManagerCallback;
 
 public class CallActivity extends BaseActivity implements View.OnClickListener {
+    private String tag = "CallActivity";
     private Toolbar toolbar;
     private EditText et_phone;
     private EditText et_name;
@@ -38,7 +39,19 @@ public class CallActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void initData() {
-        registerCall();
+        WristbandManager.getInstance(this).registerCallback(new WristbandManagerCallback() {
+            @Override
+            public void onError(int error) {
+                super.onError(error);
+                Log.i(tag, getString(R.string.app_error));
+            }
+
+            @Override
+            public void onEndCall() {
+                super.onEndCall();
+                Log.i(tag, getString(R.string.app_reject_call));
+            }
+        });
     }
 
     private void addListener() {
@@ -58,21 +71,12 @@ public class CallActivity extends BaseActivity implements View.OnClickListener {
             case R.id.btn_in_call:
                 String phoneNum = et_phone.getText().toString();
                 String name = et_name.getText().toString();
-                if (null != phoneNum && !phoneNum.isEmpty()) {
-                    CallMessage callMessage = new CallMessage();
-                    callMessage.setPhoneNum(phoneNum);
-                    if (null != name && !name.isEmpty()) {
-                        callMessage.setContractName(name);
-                    }
-                    inCall(callMessage);
+                if (null != name && !name.isEmpty()) {
+                    inCall(name);
+                } else if (null != phoneNum && !phoneNum.isEmpty()) {
+                    inCall(phoneNum);
                 } else {
-                    if (null != name && !name.isEmpty()) {
-                        CallMessage callMessage = new CallMessage();
-                        callMessage.setContractName(name);
-                        inCall(callMessage);
-                    } else {
-                        showToast("请输入电话或昵称");
-                    }
+                    showToast(getString(R.string.app_call_hint));
                 }
                 break;
             case R.id.btn_off_call:
@@ -81,36 +85,19 @@ public class CallActivity extends BaseActivity implements View.OnClickListener {
         }
     }
 
-    public void registerCall() {
-        WristbandManager.getInstance(this).registerCallback(new WristbandManagerCallback() {
-            @Override
-            public void onError(int error) {
-                super.onError(error);
-                showToast("出错了");
-            }
-
-            @Override
-            public void onEndCall() {
-                super.onEndCall();
-                showToast("来电拒接");
-            }
-        });
-    }
-
-    public void inCall(CallMessage message) {
-        if (WristbandManager.getInstance(this).sendCallNotifyInfo(message.getPhoneNum())) {
-            showToast("同步来电成功");
+    public void inCall(String content) {
+        if (WristbandManager.getInstance(this).sendCallNotifyInfo(content)) {
+            showToast(getString(R.string.app_success));
         } else {
-            showToast("同步来电失败");
+            showToast(getString(R.string.app_fail));
         }
     }
 
     private void offCall() {
         if (WristbandManager.getInstance(this).sendCallRejectNotifyInfo()) {
-            showToast("挂断成功");
+            showToast(getString(R.string.app_success));
         } else {
-
-            showToast("挂断失败");
+            showToast(getString(R.string.app_fail));
         }
     }
 

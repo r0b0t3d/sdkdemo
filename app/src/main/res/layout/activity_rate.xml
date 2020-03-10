@@ -34,14 +34,21 @@
             android:id="@+id/btn_start_measure"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="开始测量" />
+            android:text="@string/app_start_measure" />
 
         <Button
             android:id="@+id/btn_stop_measure"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/btn_start_measure"
-            android:text="结束测量" />
+            android:text="@string/app_stop_measure" />
+
+        <Button
+            android:id="@+id/btn_read_history"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btn_stop_measure"
+            android:text="@string/app_read_local" />
 
     </RelativeLayout>
 

@@ -33,7 +33,7 @@
             android:id="@+id/et_age"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="年龄" />
+            android:hint="@string/app_age" />
 
         <RadioGroup
             android:id="@+id/rg_gender"
@@ -47,14 +47,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
-                android:text="男" />
+                android:text="@string/app_male" />
 
             <RadioButton
                 android:id="@+id/rb_female"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:text="女" />
+                android:text="@string/app_female" />
 
         </RadioGroup>
 
@@ -63,7 +63,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/rg_gender"
-            android:hint="身高 cm"
+            android:hint="@string/app_height"
             android:inputType="number" />
 
         <EditText
@@ -71,38 +71,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/et_height"
-            android:hint="体重 kg"
+            android:hint="@string/app_weight"
             android:inputType="number" />
-
-        <RadioGroup
-            android:id="@+id/rg_skin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/et_weight"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/rb_light"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="true"
-                android:text="浅色" />
-
-            <RadioButton
-                android:id="@+id/rb_dark"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:text="深色" />
-
-        </RadioGroup>
 
         <Button
             android:id="@+id/btn_sync_user_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/rg_skin"
-            android:text="同步个人信息" />
+            android:layout_below="@id/et_weight"
+            android:text="@string/app_sync_user_info" />
 
     </RelativeLayout>
 

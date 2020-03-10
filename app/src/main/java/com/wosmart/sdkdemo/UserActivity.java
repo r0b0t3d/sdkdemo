@@ -19,7 +19,6 @@ public class UserActivity extends BaseActivity implements View.OnClickListener {
     private RadioGroup rg_gender;
     private EditText et_height;
     private EditText et_weight;
-    private RadioGroup rg_skin;
     private Button btn_sync_user_info;
 
     @Override
@@ -37,12 +36,17 @@ public class UserActivity extends BaseActivity implements View.OnClickListener {
         rg_gender = findViewById(R.id.rg_gender);
         et_height = findViewById(R.id.et_height);
         et_weight = findViewById(R.id.et_weight);
-        rg_skin = findViewById(R.id.rg_skin);
         btn_sync_user_info = findViewById(R.id.btn_sync_user_info);
     }
 
     private void initData() {
-
+        WristbandManager.getInstance(this).registerCallback(new WristbandManagerCallback() {
+            @Override
+            public void onError(int error) {
+                super.onError(error);
+                showToast(getString(R.string.app_error));
+            }
+        });
     }
 
     private void addListener() {
@@ -68,19 +72,19 @@ public class UserActivity extends BaseActivity implements View.OnClickListener {
                 if (null != ageStr && !ageStr.isEmpty()) {
                     age = Integer.parseInt(ageStr);
                 } else {
-                    showToast("请输入年龄");
+                    showToast(getString(R.string.app_user_hint_age));
                     return;
                 }
                 if (null != heightStr && !heightStr.isEmpty()) {
                     height = Integer.parseInt(heightStr);
                 } else {
-                    showToast("请输入身高");
+                    showToast(getString(R.string.app_user_hint_height));
                     return;
                 }
                 if (null != weightStr && !weightStr.isEmpty()) {
                     weight = Float.parseFloat(weightStr);
                 } else {
-                    showToast("请输入体重");
+                    showToast(getString(R.string.app_user_hint_weight));
                     return;
                 }
                 int checkGender = rg_gender.getCheckedRadioButtonId();
@@ -91,17 +95,10 @@ public class UserActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void syncUserInfo(ApplicationLayerUserPacket info) {
-        WristbandManager.getInstance(this).registerCallback(new WristbandManagerCallback() {
-            @Override
-            public void onError(int error) {
-                super.onError(error);
-                showToast("出错了");
-            }
-        });
         if (WristbandManager.getInstance(this).setUserProfile(info)) {
-            showToast("同步个人信息成功");
+            showToast(getString(R.string.app_success));
         } else {
-            showToast("同步个人信息失败");
+            showToast(getString(R.string.app_fail));
         }
     }
 }

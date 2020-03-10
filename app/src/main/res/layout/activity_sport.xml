@@ -30,46 +30,24 @@
         android:layout_centerInParent="true">
 
         <Button
-            android:id="@+id/btn_query_sport_model"
+            android:id="@+id/btn_check_sport_rate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="查询运动模式"></Button>
+            android:text="@string/app_check_sport_rate"></Button>
 
         <Button
-            android:id="@+id/btn_query_sport_status"
+            android:id="@+id/btn_start_sport_rate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/btn_query_sport_model"
-            android:text="查询运动状态" />
-
-        <EditText
-            android:id="@+id/et_sport_mode"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/btn_query_sport_status"
-            android:hint="运动模式 1-6" />
+            android:layout_below="@id/btn_check_sport_rate"
+            android:text="@string/app_start_sport_rate"></Button>
 
         <Button
-            android:id="@+id/btn_start_sport"
+            android:id="@+id/btn_stop_sport_rate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/et_sport_mode"
-            android:text="开始运动" />
-
-        <Button
-            android:id="@+id/btn_stop_sport"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/btn_start_sport"
-            android:text="结束运动" />
-
-
-        <Button
-            android:id="@+id/btn_read_sport_data"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/btn_stop_sport"
-            android:text="读取运动数据" />
+            android:layout_below="@id/btn_start_sport_rate"
+            android:text="@string/app_stop_sport_rate"></Button>
 
     </RelativeLayout>
 

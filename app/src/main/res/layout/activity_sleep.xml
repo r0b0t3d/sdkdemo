@@ -30,25 +30,11 @@
         android:layout_centerInParent="true">
 
         <Button
-            android:id="@+id/btn_create"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="创建" />
-
-        <EditText
-            android:id="@+id/et_read_day"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/btn_create"
-            android:hint="读取天数"
-            android:inputType="number" />
-
-        <Button
             android:id="@+id/btn_read_history"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/et_read_day"
-            android:text="读取历史" />
+            android:text="@string/app_read_local" />
+
     </RelativeLayout>
 
 </RelativeLayout>

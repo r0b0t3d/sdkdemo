@@ -27,8 +27,6 @@
 
         <activity android:name=".LoginActivity" />
 
-        <activity android:name=".PwdActivity" />
-
         <activity android:name=".TimeActivity" />
 
         <activity android:name=".UserActivity" />
@@ -57,10 +55,6 @@
 
         <activity android:name=".ResetActivity" />
 
-        <activity android:name=".NameActivity" />
-
-        <activity android:name=".MotorActivity" />
-
         <activity android:name=".SyncDataActivity" />
 
         <activity android:name=".StepActivity" />
@@ -71,11 +65,7 @@
 
         <activity android:name=".BpActivity" />
 
-        <service android:name=".DfuService" />
-
         <activity android:name=".UpgradeActivity" />
-
-        <activity android:name=".UiUpgradeActivity" />
 
         <activity android:name=".LanguageActivity" />
 
@@ -89,17 +79,9 @@
 
         <activity android:name=".DeviceInfoActivity" />
 
-        <activity android:name=".WeatherActivity" />
-
-        <activity android:name=".HrReminderActivity" />
-
-        <activity android:name=".StepWatchActivity" />
-
         <activity android:name=".TimerActivity" />
 
         <activity android:name=".StepGoalActivity" />
-
-        <activity android:name=".ClassBtActivity" />
 
     </application>
 

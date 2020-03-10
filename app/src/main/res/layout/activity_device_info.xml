@@ -30,17 +30,17 @@
         android:layout_centerInParent="true">
 
         <Button
-            android:id="@+id/btn_read_version"
+            android:id="@+id/btn_read_device"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="读取版本" />
+            android:text="@string/app_read_device_info" />
 
         <Button
             android:id="@+id/btn_read_function"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/btn_read_version"
-            android:text="读取功能" />
+            android:layout_below="@id/btn_read_device"
+            android:text="@string/app_read_device_function" />
 
 
     </RelativeLayout>

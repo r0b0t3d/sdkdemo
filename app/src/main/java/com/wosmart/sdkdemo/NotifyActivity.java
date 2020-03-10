@@ -108,10 +108,10 @@ public class NotifyActivity extends BaseActivity implements View.OnClickListener
                         }
                         send_notify(notifyType, content);
                     } else {
-                        showToast("请输入推送内容");
+                        showToast(getString(R.string.app_notify_hint_content));
                     }
                 } else {
-                    showToast("请输入通知类型");
+                    showToast(getString(R.string.app_notify_hint_type));
                 }
                 break;
         }
@@ -120,9 +120,9 @@ public class NotifyActivity extends BaseActivity implements View.OnClickListener
     private void send_notify(NotifyType type, String content) {
 
         if (WristbandManager.getInstance(this).sendOtherNotifyInfo(type, content)) {
-            showToast("发送成功");
+            showToast(getString(R.string.app_success));
         } else {
-            showToast("发送失败");
+            showToast(getString(R.string.app_fail));
         }
     }
 }

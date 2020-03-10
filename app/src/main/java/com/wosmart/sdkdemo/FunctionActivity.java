@@ -17,8 +17,6 @@ import java.util.List;
 
 public class FunctionActivity extends BaseActivity {
 
-
-
     private Toolbar toolbar;
 
     private RecyclerView rcy_function;
@@ -61,10 +59,6 @@ public class FunctionActivity extends BaseActivity {
 
         Function time = new Function(1, getString(R.string.app_time));
 
-//        Function pwd = new Function(2, getString(R.string.app_pwd));
-
-//        Function device = new Function(2, getString(R.string.app_device));
-
         Function user = new Function(3, getString(R.string.app_user));
 
         Function clock = new Function(4, getString(R.string.app_clock));
@@ -91,10 +85,6 @@ public class FunctionActivity extends BaseActivity {
 
         Function reset = new Function(15, getString(R.string.app_reset));
 
-        Function modify_name = new Function(16, getString(R.string.app_modify_name));
-
-        Function motor_control = new Function(17, getString(R.string.app_motor));
-
         Function step = new Function(18, getString(R.string.app_step));
 
         Function sleep = new Function(19, getString(R.string.app_sleep));
@@ -103,13 +93,9 @@ public class FunctionActivity extends BaseActivity {
 
         Function software = new Function(21, getString(R.string.app_software_upgrade));
 
-        Function uiUpgrade = new Function(22, getString(R.string.app_ui_upgrade));
-
         Function language = new Function(23, getString(R.string.app_language));
 
         Function unit = new Function(24, getString(R.string.app_unit));
-
-        Function rateReminder = new Function(25, getString(R.string.app_hr_reminder));
 
         Function rateDetect = new Function(26, getString(R.string.app_rate_detect));
 
@@ -119,13 +105,9 @@ public class FunctionActivity extends BaseActivity {
 
         Function device = new Function(29, getString(R.string.app_device_info));
 
-        Function weather = new Function(30, getString(R.string.app_weather));
-
-        Function stepWatch = new Function(31, getString(R.string.app_step_watch));
-
         Function timer = new Function(32, getString(R.string.app_timer));
 
-        Function stepGoal = new Function(33, getString(R.string.app_step_goal));
+        Function stepGoal = new Function(33, getString(R.string.app_goal_setting));
 
         Function bp = new Function(34, getString(R.string.app_bp));
 
@@ -133,46 +115,36 @@ public class FunctionActivity extends BaseActivity {
 
         Function macAddress = new Function(36, getString(R.string.app_mac_address));
 
-        Function classBt = new Function(37, getString(R.string.app_classic_bt));
-
-        functions.add(macAddress);
-        functions.add(classBt);
         functions.add(login);
-        functions.add(time);
-//        functions.add(pwd);
-//        functions.add(weather);
         functions.add(device);
+        functions.add(time);
         functions.add(user);
         functions.add(language);
         functions.add(unit);
         functions.add(stepGoal);
-//        functions.add(clock);
-        functions.add(call);
-        functions.add(notifySwitch);
-        functions.add(notify);
-        functions.add(camera);
-        functions.add(rateDetect);
-//        functions.add(rateReminder);
-        functions.add(sedentary);
-        functions.add(lightControl);
-//        functions.add(stepWatch);
-//        functions.add(timer);
-//        functions.add(ui);
-        functions.add(disturb);
-        functions.add(findBand);
-//        functions.add(findPhone);
-        functions.add(queryBattery);
-//        functions.add(querySportMode);
-//        functions.add(reset);
-        functions.add(modify_name);
-//        functions.add(motor_control);
         functions.add(syncData);
         functions.add(step);
-//        functions.add(sleep);
+        functions.add(sleep);
         functions.add(rate);
         functions.add(bp);
+        functions.add(querySportMode);
+        functions.add(queryBattery);
+        functions.add(notifySwitch);
+        functions.add(call);
+        functions.add(notify);
+        functions.add(clock);
+        functions.add(camera);
+        functions.add(rateDetect);
+        functions.add(sedentary);
+        functions.add(lightControl);
+        functions.add(timer);
+        functions.add(ui);
+        functions.add(disturb);
+        functions.add(findBand);
+        functions.add(findPhone);
+        functions.add(reset);
+        functions.add(macAddress);
 //        functions.add(software);
-//        functions.add(uiUpgrade);
 
         rcy_function.setLayoutManager(new LinearLayoutManager(this));
         adapter = new FunctionAdapter(this, functions);
@@ -199,11 +171,6 @@ public class FunctionActivity extends BaseActivity {
                         Intent time = new Intent();
                         time.setClass(FunctionActivity.this, TimeActivity.class);
                         startActivity(time);
-                        break;
-                    case 2:
-                        Intent pwd = new Intent();
-                        pwd.setClass(FunctionActivity.this, PwdActivity.class);
-                        startActivity(pwd);
                         break;
                     case 3:
                         Intent user = new Intent();
@@ -270,16 +237,6 @@ public class FunctionActivity extends BaseActivity {
                         reset.setClass(FunctionActivity.this, ResetActivity.class);
                         startActivity(reset);
                         break;
-                    case 16:
-                        Intent nameIntent = new Intent();
-                        nameIntent.setClass(FunctionActivity.this, NameActivity.class);
-                        startActivity(nameIntent);
-                        break;
-                    case 17:
-                        Intent motor = new Intent();
-                        motor.setClass(FunctionActivity.this, MotorActivity.class);
-                        startActivity(motor);
-                        break;
                     case 18:
                         Intent step = new Intent();
                         step.setClass(FunctionActivity.this, StepActivity.class);
@@ -302,13 +259,6 @@ public class FunctionActivity extends BaseActivity {
                         software.putExtra("name", name);
                         startActivity(software);
                         break;
-                    case 22:
-                        Intent uiUpgrade = new Intent();
-                        uiUpgrade.setClass(FunctionActivity.this, UiUpgradeActivity.class);
-                        uiUpgrade.putExtra("mac", mac);
-                        uiUpgrade.putExtra("name", name);
-                        startActivity(uiUpgrade);
-                        break;
                     case 23:
                         Intent language = new Intent();
                         language.setClass(FunctionActivity.this, LanguageActivity.class);
@@ -318,11 +268,6 @@ public class FunctionActivity extends BaseActivity {
                         Intent unit = new Intent();
                         unit.setClass(FunctionActivity.this, UnitActivity.class);
                         startActivity(unit);
-                        break;
-                    case 25:
-                        Intent rateReminder = new Intent();
-                        rateReminder.setClass(FunctionActivity.this, HrReminderActivity.class);
-                        startActivity(rateReminder);
                         break;
                     case 26:
                         Intent rateDetect = new Intent();
@@ -343,16 +288,6 @@ public class FunctionActivity extends BaseActivity {
                         Intent device = new Intent();
                         device.setClass(FunctionActivity.this, DeviceInfoActivity.class);
                         startActivity(device);
-                        break;
-                    case 30:
-                        Intent weather = new Intent();
-                        weather.setClass(FunctionActivity.this, WeatherActivity.class);
-                        startActivity(weather);
-                        break;
-                    case 31:
-                        Intent stepWatch = new Intent();
-                        stepWatch.setClass(FunctionActivity.this, StepWatchActivity.class);
-                        startActivity(stepWatch);
                         break;
                     case 32:
                         Intent timer = new Intent();
@@ -378,11 +313,6 @@ public class FunctionActivity extends BaseActivity {
                         Intent macAddress = new Intent();
                         macAddress.setClass(FunctionActivity.this, MacAddressActivity.class);
                         startActivity(macAddress);
-                        break;
-                    case 37:
-                        Intent classBt = new Intent();
-                        classBt.setClass(FunctionActivity.this, ClassBtActivity.class);
-                        startActivity(classBt);
                         break;
                 }
             }

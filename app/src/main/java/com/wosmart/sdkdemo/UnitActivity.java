@@ -61,9 +61,9 @@ public class UnitActivity extends BaseActivity implements View.OnClickListener {
 
     private void setUnit(boolean isMetric) {
         if (WristbandManager.getInstance(this).settingUnitSystem(isMetric)) {
-            showToast("设置成功");
+            showToast(getString(R.string.app_success));
         } else {
-            showToast("设置失败");
+            showToast(getString(R.string.app_fail));
         }
     }
 }

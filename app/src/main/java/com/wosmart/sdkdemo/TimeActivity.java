@@ -14,8 +14,6 @@ public class TimeActivity extends BaseActivity implements View.OnClickListener {
 
     private Toolbar toolbar;
     private Button btn_sync_time;
-    private RadioGroup rg_hour_system;
-    private Button btn_sync_hour;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -29,8 +27,6 @@ public class TimeActivity extends BaseActivity implements View.OnClickListener {
     private void initView() {
         toolbar = findViewById(R.id.toolbar);
         btn_sync_time = findViewById(R.id.btn_sync_time);
-        rg_hour_system = findViewById(R.id.rg_hour_system);
-        btn_sync_hour = findViewById(R.id.btn_sync_hour);
     }
 
     private void initData() {
@@ -45,7 +41,6 @@ public class TimeActivity extends BaseActivity implements View.OnClickListener {
             }
         });
         btn_sync_time.setOnClickListener(this);
-        btn_sync_hour.setOnClickListener(this);
     }
 
     @Override
@@ -54,26 +49,15 @@ public class TimeActivity extends BaseActivity implements View.OnClickListener {
             case R.id.btn_sync_time:
                 syncTime();
                 break;
-            case R.id.btn_sync_hour:
-                boolean flag = rg_hour_system.getCheckedRadioButtonId() == R.id.rb_24;
-                setHourUnit(flag);
-                break;
         }
     }
 
     private void syncTime() {
         if (WristbandManager.getInstance(this).setTimeSync()) {
-            showToast("同步时间成功");
+            showToast(getString(R.string.app_success));
         } else {
-            showToast("同步时间失败");
+            showToast(getString(R.string.app_fail));
         }
     }
 
-    private void setHourUnit(boolean is24Model) {
-        if (WristbandManager.getInstance(this).setHourSystem(is24Model)) {
-            showToast("设置成功");
-        } else {
-            showToast("设置失败");
-        }
-    }
 }

@@ -33,7 +33,7 @@
             android:id="@+id/btn_find_band"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="查找手环" />
+            android:text="@string/app_find_band" />
 
     </RelativeLayout>
 

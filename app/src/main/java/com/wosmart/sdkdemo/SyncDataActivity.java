@@ -12,12 +12,15 @@ import com.wosmart.ukprotocollibary.WristbandManager;
 import com.wosmart.ukprotocollibary.WristbandManagerCallback;
 import com.wosmart.ukprotocollibary.applicationlayer.ApplicationLayerHrpItemPacket;
 import com.wosmart.ukprotocollibary.applicationlayer.ApplicationLayerHrpPacket;
+import com.wosmart.ukprotocollibary.applicationlayer.ApplicationLayerRateItemPacket;
+import com.wosmart.ukprotocollibary.applicationlayer.ApplicationLayerRateListPacket;
 import com.wosmart.ukprotocollibary.applicationlayer.ApplicationLayerSleepItemPacket;
 import com.wosmart.ukprotocollibary.applicationlayer.ApplicationLayerSleepPacket;
 import com.wosmart.ukprotocollibary.applicationlayer.ApplicationLayerSportItemPacket;
 import com.wosmart.ukprotocollibary.applicationlayer.ApplicationLayerSportPacket;
 import com.wosmart.ukprotocollibary.applicationlayer.ApplicationLayerStepItemPacket;
 import com.wosmart.ukprotocollibary.applicationlayer.ApplicationLayerStepPacket;
+import com.wosmart.ukprotocollibary.applicationlayer.ApplicationLayerTodaySumSportPacket;
 
 public class SyncDataActivity extends BaseActivity implements View.OnClickListener {
 
@@ -43,6 +46,13 @@ public class SyncDataActivity extends BaseActivity implements View.OnClickListen
 
     private void initData() {
         WristbandManager.getInstance(this).registerCallback(new WristbandManagerCallback() {
+
+            @Override
+            public void onSyncDataBegin() {
+                super.onSyncDataBegin();
+                Log.i(tag, "sync begin");
+            }
+
             @Override
             public void onStepDataReceiveIndication(ApplicationLayerStepPacket packet) {
                 super.onStepDataReceiveIndication(packet);
@@ -50,7 +60,6 @@ public class SyncDataActivity extends BaseActivity implements View.OnClickListen
                     Log.i(tag, item.toString());
                 }
                 Log.i(tag, "size = " + packet.getStepsItems().size());
-                showToast("计步读完了");
             }
 
             @Override
@@ -60,7 +69,6 @@ public class SyncDataActivity extends BaseActivity implements View.OnClickListen
                     Log.i(tag, item.toString());
                 }
                 Log.i(tag, "size = " + packet.getSleepItems().size());
-                showToast("睡眠读完了");
             }
 
             @Override
@@ -70,7 +78,15 @@ public class SyncDataActivity extends BaseActivity implements View.OnClickListen
                     Log.i(tag, item.toString());
                 }
                 Log.i(tag, "size = " + packet.getHrpItems().size());
-                showToast("心率读完了");
+            }
+
+            @Override
+            public void onRateList(ApplicationLayerRateListPacket packet) {
+                super.onRateList(packet);
+                for (ApplicationLayerRateItemPacket item : packet.getRateList()) {
+                    Log.i(tag, item.toString());
+                }
+                Log.i(tag, "size = " + packet.getRateList().size());
             }
 
             @Override
@@ -80,7 +96,12 @@ public class SyncDataActivity extends BaseActivity implements View.OnClickListen
                     Log.i(tag, item.toString());
                 }
                 Log.i(tag, "size = " + packet.getSportItems().size());
-                showToast("运动读完了");
+            }
+
+            @Override
+            public void onSyncDataEnd(ApplicationLayerTodaySumSportPacket packet) {
+                super.onSyncDataEnd(packet);
+                Log.i(tag, "sync end");
             }
         });
     }
@@ -105,11 +126,10 @@ public class SyncDataActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void syncData() {
-
         if (WristbandManager.getInstance(this).sendDataRequest()) {
-            showToast("同步数据失败");
+            showToast(getString(R.string.app_success));
         } else {
-            showToast("同步数据成功");
+            showToast(getString(R.string.app_fail));
         }
     }
 }

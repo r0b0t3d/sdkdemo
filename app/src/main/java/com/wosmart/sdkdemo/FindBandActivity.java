@@ -54,9 +54,9 @@ public class FindBandActivity extends BaseActivity implements View.OnClickListen
 
     private void findBand() {
         if (WristbandManager.getInstance(this).enableImmediateAlert(true)) {
-            showToast("查找手环成功");
+            showToast(getString(R.string.app_success));
         } else {
-            showToast("查找手环失败");
+            showToast(getString(R.string.app_fail));
         }
     }
 }

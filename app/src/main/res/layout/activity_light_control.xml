@@ -33,7 +33,7 @@
             android:id="@+id/btn_read_turn_wrist"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="读取转腕" />
+            android:text="@string/app_read_turn_wrist" />
 
         <RadioGroup
             android:id="@+id/rg_turn_wrist"
@@ -47,14 +47,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
-                android:text="开" />
+                android:text="@string/app_open" />
 
             <RadioButton
                 android:id="@+id/rb_close"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
-                android:text="关" />
+                android:text="@string/app_close" />
 
         </RadioGroup>
 
@@ -63,21 +63,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/rg_turn_wrist"
-            android:text="设置转腕" />
+            android:text="@string/app_set_turn_wrist" />
 
         <Button
             android:id="@+id/btn_read"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/btn_set_turn_wrist"
-            android:text="读取亮屏时长" />
+            android:text="@string/app_read_screen_light_duration" />
 
         <EditText
             android:id="@+id/et_light_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/btn_read"
-            android:hint="亮屏时长 3-30s"
+            android:hint="@string/app_screen_light_duration"
             android:inputType="number" />
 
         <Button
@@ -85,7 +85,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/et_light_time"
-            android:text="设置" />
+            android:text="@string/app_set_screen_light_duration" />
 
     </RelativeLayout>
 

@@ -1,4 +1,4 @@
-package com.wosmart;
+package com.wosmart.sdkdemo;
 
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothProfile;

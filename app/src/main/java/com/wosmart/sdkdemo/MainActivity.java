@@ -13,7 +13,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.wosmart.bandlibrary.protocol.WoBtOperationManager;
 import com.wosmart.sdkdemo.Common.BaseActivity;
 import com.wosmart.ukprotocollibary.WristbandManager;
 
@@ -55,7 +54,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void initData() {
-        WoBtOperationManager.getInstance(this).setEnableLog(true);
         checkStoragePermission();
         checkLocationPermission();
     }
@@ -73,7 +71,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             name = data.getStringExtra("name");
             connectFlag = true;
             appendLog("connected mac = " + mac);
-            btn_scan.setText("断开连接");
+            btn_scan.setText(getString(R.string.app_disconnect));
         }
     }
 
@@ -89,7 +87,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.btn_scan:
                 if (connectFlag) {
-                    disConnect(mac);
+                    disConnect();
                 } else {
                     Intent intent = new Intent();
                     intent.setClass(this, ScanActivity.class);
@@ -130,40 +128,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
     }
 
-    private String getMediumContent() {
-        try {
-            InputStreamReader inputReader = new InputStreamReader(getResources().openRawResource(R.raw.medium));
-            BufferedReader bufReader = new BufferedReader(inputReader);
-            String line;
-            String Result = "";
-            while ((line = bufReader.readLine()) != null)
-                Result += line;
-            return Result;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "";
-        }
-    }
-
-    private String getLongContent() {
-        try {
-            InputStreamReader inputReader = new InputStreamReader(getResources().openRawResource(R.raw.long2));
-            BufferedReader bufReader = new BufferedReader(inputReader);
-            String line;
-            String Result = "";
-            while ((line = bufReader.readLine()) != null)
-                Result += line;
-            return Result;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "";
-        }
-    }
-
-    private void disConnect(String mac) {
+    private void disConnect() {
         WristbandManager.getInstance(this).close();
         connectFlag = false;
-        btn_scan.setText("扫描");
+        btn_scan.setText(getString(R.string.app_scan));
         appendLog("disconnect device");
         this.mac = "";
     }

@@ -8,17 +8,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 
-import com.wosmart.bandlibrary.bluetooth.connect.response.BleWriteResponse;
-import com.wosmart.bandlibrary.protocol.WoBtOperationManager;
-import com.wosmart.bandlibrary.protocol.listener.SendShortListener;
-import com.wosmart.bandlibrary.protocol.listener.TimerListener;
-import com.wosmart.bandlibrary.protocol.model.data.TimerInfo;
 import com.wosmart.sdkdemo.Common.BaseActivity;
+import com.wosmart.ukprotocollibary.WristbandManager;
+import com.wosmart.ukprotocollibary.applicationlayer.ApplicationLayerTimerPacket;
+import com.wosmart.ukprotocollibary.model.enums.TimerOpt;
 
 public class TimerActivity extends BaseActivity implements View.OnClickListener {
     private Toolbar toolbar;
     private Button btn_read;
-    private RadioGroup rg_status;
     private EditText et_duration;
     private Button btn_set;
     private Button btn_start;
@@ -36,7 +33,6 @@ public class TimerActivity extends BaseActivity implements View.OnClickListener 
     private void initView() {
         toolbar = findViewById(R.id.toolbar);
         btn_read = findViewById(R.id.btn_read);
-        rg_status = findViewById(R.id.rg_status);
         et_duration = findViewById(R.id.et_duration);
         btn_set = findViewById(R.id.btn_set);
         btn_start = findViewById(R.id.btn_start);
@@ -68,74 +64,48 @@ public class TimerActivity extends BaseActivity implements View.OnClickListener 
                 readTimer();
                 break;
             case R.id.btn_set:
-                boolean flag = false;
-                if (rg_status.getCheckedRadioButtonId() == R.id.rb_open) {
-                    flag = true;
-                }
                 String durationStr = et_duration.getText().toString();
                 if (null != durationStr && !durationStr.isEmpty()) {
                     int duration = Integer.parseInt(durationStr);
-                    TimerInfo timerInfo = new TimerInfo();
-                    timerInfo.setOpen(flag);
-                    timerInfo.setCounting(false);
-                    timerInfo.setDuration(duration);
+                    ApplicationLayerTimerPacket timerInfo = new ApplicationLayerTimerPacket();
+                    timerInfo.setOpt(TimerOpt.SETTING);
+                    timerInfo.setSeconds(duration);
+                    timerInfo.setShow(false);
                     setTimer(timerInfo);
                 } else {
-                    showToast("请输入常用时长");
+                    showToast(getString(R.string.app_timer_hint_duration));
                 }
                 break;
             case R.id.btn_start:
-                TimerInfo timerInfo2 = new TimerInfo();
-                timerInfo2.setOpen(true);
-                timerInfo2.setCounting(true);
-                timerInfo2.setDuration(30);
+                ApplicationLayerTimerPacket timerInfo2 = new ApplicationLayerTimerPacket();
+                timerInfo2.setOpt(TimerOpt.BEGIN);
+                timerInfo2.setSeconds(300);
+                timerInfo2.setShow(false);
                 setTimer(timerInfo2);
                 break;
             case R.id.btn_stop:
-                TimerInfo timerInfo3 = new TimerInfo();
-                timerInfo3.setOpen(true);
-                timerInfo3.setCounting(false);
-                timerInfo3.setDuration(30);
+                ApplicationLayerTimerPacket timerInfo3 = new ApplicationLayerTimerPacket();
+                timerInfo3.setOpt(TimerOpt.END);
+                timerInfo3.setSeconds(300);
+                timerInfo3.setShow(false);
                 setTimer(timerInfo3);
                 break;
         }
     }
 
     private void readTimer() {
-        WoBtOperationManager.getInstance(this).readTimer(new BleWriteResponse() {
-            @Override
-            public void onResponse(int code) {
-
-            }
-        }, new TimerListener() {
-            @Override
-            public void onFail() {
-                showToast("读取失败");
-            }
-
-            @Override
-            public void onSuccess(TimerInfo timerInfo) {
-                showToast("读取成功 " + timerInfo.toString());
-            }
-        });
+        if (WristbandManager.getInstance(this).readTimerInfo()) {
+            showToast(getString(R.string.app_success));
+        } else {
+            showToast(getString(R.string.app_fail));
+        }
     }
 
-    private void setTimer(TimerInfo timerInfo) {
-        WoBtOperationManager.getInstance(this).setTimer(timerInfo, new BleWriteResponse() {
-            @Override
-            public void onResponse(int code) {
-
-            }
-        }, new SendShortListener() {
-            @Override
-            public void onSendFail() {
-                showToast("设置失败");
-            }
-
-            @Override
-            public void onSendSuccess() {
-                showToast("设置成功");
-            }
-        });
+    private void setTimer(ApplicationLayerTimerPacket timerInfo) {
+        if (WristbandManager.getInstance(this).setTimerInfo(timerInfo)) {
+            showToast(getString(R.string.app_success));
+        } else {
+            showToast(getString(R.string.app_fail));
+        }
     }
 }

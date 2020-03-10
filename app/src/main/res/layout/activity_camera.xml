@@ -33,14 +33,14 @@
             android:id="@+id/btn_enter_camera"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="进入拍照" />
+            android:text="@string/app_enter_camera" />
 
         <Button
             android:id="@+id/btn_exit_camera"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/btn_enter_camera"
-            android:text="退出拍照" />
+            android:text="@string/app_exit_camera" />
 
     </RelativeLayout>
 

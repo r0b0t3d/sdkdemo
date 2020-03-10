@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.wosmart.bandlibrary.bluetooth.search.SearchResult;
 import com.wosmart.sdkdemo.R;
+import com.wosmart.sdkdemo.SearchResult;
 
 import java.util.List;
 

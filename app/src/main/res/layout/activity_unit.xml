@@ -41,14 +41,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
-                android:text="公制" />
+                android:text="@string/app_metric_system" />
 
             <RadioButton
                 android:id="@+id/rb_english"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
-                android:text="英制" />
+                android:text="@string/app_english_system" />
+
         </RadioGroup>
 
         <Button
@@ -56,7 +57,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/rg_unit"
-            android:text="设置" />
+            android:text="@string/app_set" />
 
     </RelativeLayout>
 

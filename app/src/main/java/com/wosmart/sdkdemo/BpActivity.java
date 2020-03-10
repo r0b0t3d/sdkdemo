@@ -45,14 +45,13 @@ public class BpActivity extends BaseActivity implements View.OnClickListener {
                 super.onBpDataReceiveIndication(packet);
                 for (ApplicationLayerBpItemPacket item : packet.getBpItems()) {
                     Log.i(tag, "bp high :" + item.getmHighValue() + " low : " + item.getmLowValue());
-                    showToast("bp high :" + item.getmHighValue() + " low : " + item.getmLowValue());
                 }
             }
 
             @Override
             public void onDeviceCancelSingleBpRead() {
                 super.onDeviceCancelSingleBpRead();
-                showToast("stop measure bp ");
+                Log.i(tag, "stop measure bp ");
             }
         });
     }
@@ -82,17 +81,17 @@ public class BpActivity extends BaseActivity implements View.OnClickListener {
 
     private void startMeasure() {
         if (WristbandManager.getInstance(this).readBpValue()) {
-            showToast("开启测量成功 ");
+            showToast(getString(R.string.app_success));
         } else {
-            showToast("开启测量失败");
+            showToast(getString(R.string.app_fail));
         }
     }
 
     private void stopMeasure() {
         if (WristbandManager.getInstance(this).stopReadBpValue()) {
-            showToast("结束测量成功 ");
+            showToast(getString(R.string.app_success));
         } else {
-            showToast("结束测量失败");
+            showToast(getString(R.string.app_fail));
         }
     }
 }

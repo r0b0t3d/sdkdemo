@@ -3,17 +3,18 @@ package com.wosmart.sdkdemo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 
-import com.wosmart.bandlibrary.protocol.model.data.HrDetect;
 import com.wosmart.sdkdemo.Common.BaseActivity;
 import com.wosmart.ukprotocollibary.WristbandManager;
 import com.wosmart.ukprotocollibary.WristbandManagerCallback;
 
 public class HrDetectActivity extends BaseActivity implements View.OnClickListener {
+    private String tag = "HrDetectActivity";
 
     private Toolbar toolbar;
 
@@ -47,7 +48,7 @@ public class HrDetectActivity extends BaseActivity implements View.OnClickListen
             @Override
             public void onHrpContinueParamRsp(boolean enable, int interval) {
                 super.onHrpContinueParamRsp(enable, interval);
-                showToast("enable : " + enable + "interval : " + interval);
+                Log.i(tag, "enable : " + enable + "interval : " + interval);
             }
         });
     }
@@ -74,12 +75,9 @@ public class HrDetectActivity extends BaseActivity implements View.OnClickListen
                 String intervalStr = et_interval.getText().toString();
                 if (null != intervalStr && !intervalStr.isEmpty()) {
                     int interval = Integer.parseInt(intervalStr);
-                    HrDetect hrDetect = new HrDetect();
-                    hrDetect.setOpen(flag);
-                    hrDetect.setInterval(interval);
-                    setHrDetect(hrDetect);
+                    setHrDetect(flag, interval);
                 } else {
-                    showToast("请输入检测间隔");
+                    showToast(getString(R.string.app_hr_detect_hint));
                 }
                 break;
         }
@@ -87,17 +85,17 @@ public class HrDetectActivity extends BaseActivity implements View.OnClickListen
 
     private void readHrDetect() {
         if (WristbandManager.getInstance(this).sendContinueHrpParamRequest()) {
-            showToast("读取成功");
+            showToast(getString(R.string.app_success));
         } else {
-            showToast("读取失败");
+            showToast(getString(R.string.app_fail));
         }
     }
 
-    private void setHrDetect(HrDetect hrDetect) {
-        if (WristbandManager.getInstance(this).setContinueHrp(hrDetect.isOpen(), hrDetect.getInterval())) {
-            showToast("设置成功");
+    private void setHrDetect(boolean flag, int interval) {
+        if (WristbandManager.getInstance(this).setContinueHrp(flag, interval)) {
+            showToast(getString(R.string.app_success));
         } else {
-            showToast("设置失败");
+            showToast(getString(R.string.app_fail));
         }
     }
 }

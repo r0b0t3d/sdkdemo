@@ -6,18 +6,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 
-import com.wosmart.bandlibrary.bluetooth.connect.response.BleWriteResponse;
-import com.wosmart.bandlibrary.protocol.WoBtOperationManager;
-import com.wosmart.bandlibrary.protocol.listener.SendShortListener;
 import com.wosmart.sdkdemo.Common.BaseActivity;
+import com.wosmart.ukprotocollibary.WristbandManager;
 
 public class ResetActivity extends BaseActivity implements View.OnClickListener {
 
     private Toolbar toolbar;
 
-    private Button btn_reset;
+    private Button btn_close;
 
-    private Button btn_shut_down;
+    private Button btn_remove_bind;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -30,8 +28,8 @@ public class ResetActivity extends BaseActivity implements View.OnClickListener 
 
     private void initView() {
         toolbar = findViewById(R.id.toolbar);
-        btn_reset = findViewById(R.id.btn_reset);
-        btn_shut_down = findViewById(R.id.btn_shut_down);
+        btn_close = findViewById(R.id.btn_close);
+        btn_remove_bind = findViewById(R.id.btn_remove_bind);
     }
 
     private void initData() {
@@ -45,38 +43,32 @@ public class ResetActivity extends BaseActivity implements View.OnClickListener 
                 finish();
             }
         });
-        btn_reset.setOnClickListener(this);
-        btn_shut_down.setOnClickListener(this);
+        btn_close.setOnClickListener(this);
+        btn_remove_bind.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_reset:
-                reset(0);
+            case R.id.btn_close:
+                close();
                 break;
-            case R.id.btn_shut_down:
-                reset(1);
+            case R.id.btn_remove_bind:
+                removeBind();
                 break;
         }
     }
 
-    private void reset(int type) {
-        WoBtOperationManager.getInstance(this).sendReset(type, new BleWriteResponse() {
-            @Override
-            public void onResponse(int code) {
+    private void close() {
+        WristbandManager.getInstance(this).close();
+    }
 
-            }
-        }, new SendShortListener() {
-            @Override
-            public void onSendFail() {
-                showToast("发送失败");
-            }
-
-            @Override
-            public void onSendSuccess() {
-                showToast("发送成功");
-            }
-        });
+    private void removeBind() {
+        if (WristbandManager.getInstance(this).sendRemoveBondCommand()) {
+            WristbandManager.getInstance(this).close();
+            showToast(getString(R.string.app_success));
+        } else {
+            showToast(getString(R.string.app_fail));
+        }
     }
 }

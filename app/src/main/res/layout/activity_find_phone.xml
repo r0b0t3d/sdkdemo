@@ -29,20 +29,6 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true">
 
-
-        <Button
-            android:id="@+id/btn_register"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="添加查找手机监听" />
-
-        <Button
-            android:id="@+id/btn_unregister"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/btn_register"
-            android:text="解除查找手机监听" />
-
     </RelativeLayout>
 
 </RelativeLayout>

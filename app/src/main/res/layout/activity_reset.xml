@@ -30,17 +30,17 @@
         android:layout_centerInParent="true">
 
         <Button
-            android:id="@+id/btn_reset"
+            android:id="@+id/btn_close"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="复位" />
+            android:text="@string/app_disconnect" />
 
         <Button
-            android:id="@+id/btn_shut_down"
+            android:id="@+id/btn_remove_bind"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/btn_reset"
-            android:text="关机" />
+            android:layout_below="@id/btn_close"
+            android:text="@string/app_remove_bind" />
 
     </RelativeLayout>
 

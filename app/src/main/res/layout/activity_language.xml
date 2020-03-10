@@ -30,18 +30,11 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true">
 
-        <Button
-            android:id="@+id/btn_request_address"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="请求蓝牙地址" />
-
         <EditText
             android:id="@+id/et_language"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/btn_request_address"
-            android:hint="语言编号 0-6"
+            android:hint="@string/app_language_index"
             android:inputType="number" />
 
         <Button
@@ -49,7 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/et_language"
-            android:text="设置" />
+            android:text="@string/app_set" />
 
     </RelativeLayout>
 
