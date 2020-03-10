@@ -23,7 +23,6 @@
     <string name="app_bp">Blood pressure</string>
     <string name="app_sync_data">Sync device data</string>
     <string name="app_mac_address">Earphone connect</string>
-    <string name="app_software_upgrade">Firmware upgrade</string>
     <string name="app_language">Language</string>
     <string name="app_unit">Unit Setting</string>
     <string name="app_timer">Count down</string>
@@ -167,4 +166,7 @@
     <string name="app_user_hint_age">Please input age</string>
     <string name="app_user_hint_height">Please input height</string>
     <string name="app_user_hint_weight">Please input weight</string>
+
+    <string name="app_read_ear_mac">Read ear phone mac</string>
+    <string name="app_read_ear_status">Read ear phone status</string>
 </resources>

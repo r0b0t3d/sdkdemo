@@ -23,7 +23,6 @@
     <string name="app_bp">血压</string>
     <string name="app_sync_data">同步数据</string>
     <string name="app_mac_address">耳机连接相关</string>
-    <string name="app_software_upgrade">固件升级</string>
     <string name="app_language">语言</string>
     <string name="app_unit">单位设置</string>
     <string name="app_timer">倒计时</string>
@@ -167,4 +166,7 @@
     <string name="app_user_hint_age">请输入年龄</string>
     <string name="app_user_hint_height">请输入身高</string>
     <string name="app_user_hint_weight">请输入体重</string>
+
+    <string name="app_read_ear_mac">读取耳机地址</string>
+    <string name="app_read_ear_status">读取耳机状态</string>
 </resources>

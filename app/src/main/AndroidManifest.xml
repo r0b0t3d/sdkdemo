@@ -12,76 +12,74 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".ScanActivity" />
+        <activity android:name=".activity.ScanActivity" />
 
-        <activity android:name=".FunctionActivity" />
+        <activity android:name=".activity.FunctionActivity" />
 
-        <activity android:name=".MacAddressActivity" />
+        <activity android:name=".activity.EarPhoneActivity" />
 
-        <activity android:name=".LoginActivity" />
+        <activity android:name=".activity.LoginActivity" />
 
-        <activity android:name=".TimeActivity" />
+        <activity android:name=".activity.TimeActivity" />
 
-        <activity android:name=".UserActivity" />
+        <activity android:name=".activity.UserActivity" />
 
-        <activity android:name=".ClockActivity" />
+        <activity android:name=".activity.ClockActivity" />
 
-        <activity android:name=".CallActivity" />
+        <activity android:name=".activity.CallActivity" />
 
-        <activity android:name=".NotifyActivity" />
+        <activity android:name=".activity.NotifyActivity" />
 
-        <activity android:name=".CameraActivity" />
+        <activity android:name=".activity.CameraActivity" />
 
-        <activity android:name=".SedentaryActivity" />
+        <activity android:name=".activity.SedentaryActivity" />
 
-        <activity android:name=".HomeUiActivity" />
+        <activity android:name=".activity.HomeUiActivity" />
 
-        <activity android:name=".DisturbActivity" />
+        <activity android:name=".activity.DisturbActivity" />
 
-        <activity android:name=".FindBandActivity" />
+        <activity android:name=".activity.FindBandActivity" />
 
-        <activity android:name=".FindPhoneActivity" />
+        <activity android:name=".activity.FindPhoneActivity" />
 
-        <activity android:name=".BatteryActivity" />
+        <activity android:name=".activity.BatteryActivity" />
 
-        <activity android:name=".SportActivity" />
+        <activity android:name=".activity.SportActivity" />
 
-        <activity android:name=".ResetActivity" />
+        <activity android:name=".activity.ResetActivity" />
 
-        <activity android:name=".SyncDataActivity" />
+        <activity android:name=".activity.SyncDataActivity" />
 
-        <activity android:name=".StepActivity" />
+        <activity android:name=".activity.StepActivity" />
 
-        <activity android:name=".SleepActivity" />
+        <activity android:name=".activity.SleepActivity" />
 
-        <activity android:name=".HrActivity" />
+        <activity android:name=".activity.HrActivity" />
 
-        <activity android:name=".BpActivity" />
+        <activity android:name=".activity.BpActivity" />
 
-        <activity android:name=".UpgradeActivity" />
+        <activity android:name=".activity.LanguageActivity" />
 
-        <activity android:name=".LanguageActivity" />
+        <activity android:name=".activity.UnitActivity" />
 
-        <activity android:name=".UnitActivity" />
+        <activity android:name=".activity.HrDetectActivity" />
 
-        <activity android:name=".HrDetectActivity" />
+        <activity android:name=".activity.LightControlActivity" />
 
-        <activity android:name=".LightControlActivity" />
+        <activity android:name=".activity.NotifySwitchActivity" />
 
-        <activity android:name=".NotifySwitchActivity" />
+        <activity android:name=".activity.DeviceInfoActivity" />
 
-        <activity android:name=".DeviceInfoActivity" />
+        <activity android:name=".activity.TimerActivity" />
 
-        <activity android:name=".TimerActivity" />
-
-        <activity android:name=".StepGoalActivity" />
+        <activity android:name=".activity.StepGoalActivity" />
 
     </application>
 
