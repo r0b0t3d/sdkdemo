@@ -65,6 +65,8 @@
 
         <activity android:name=".activity.BpActivity" />
 
+        <activity android:name=".activity.TempActivity" />
+
         <activity android:name=".activity.LanguageActivity" />
 
         <activity android:name=".activity.UnitActivity" />

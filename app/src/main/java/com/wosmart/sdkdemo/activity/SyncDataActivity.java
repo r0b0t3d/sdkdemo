@@ -13,6 +13,7 @@ import com.wosmart.sdkdemo.common.BaseActivity;
 import com.wosmart.sdkdemo.R;
 import com.wosmart.ukprotocollibary.WristbandManager;
 import com.wosmart.ukprotocollibary.WristbandManagerCallback;
+import com.wosmart.ukprotocollibary.applicationlayer.ApplicationLayerBeginPacket;
 import com.wosmart.ukprotocollibary.applicationlayer.ApplicationLayerHrpItemPacket;
 import com.wosmart.ukprotocollibary.applicationlayer.ApplicationLayerHrpPacket;
 import com.wosmart.ukprotocollibary.applicationlayer.ApplicationLayerRateItemPacket;
@@ -54,8 +55,8 @@ public class SyncDataActivity extends BaseActivity implements View.OnClickListen
         WristbandManager.getInstance(this).registerCallback(new WristbandManagerCallback() {
 
             @Override
-            public void onSyncDataBegin() {
-                super.onSyncDataBegin();
+            public void onSyncDataBegin(ApplicationLayerBeginPacket packet) {
+                super.onSyncDataBegin(packet);
                 Log.i(tag, "sync begin");
             }
 
@@ -102,6 +103,29 @@ public class SyncDataActivity extends BaseActivity implements View.OnClickListen
                     Log.i(tag, item.toString());
                 }
                 Log.i(tag, "size = " + packet.getSportItems().size());
+            }
+
+            //温度检测回调
+            // temperature measure data call back
+            @Override
+            public void onTemperatureData(ApplicationLayerHrpPacket packet) {
+                super.onTemperatureData(packet);
+
+                for (ApplicationLayerHrpItemPacket item : packet.getHrpItems()) {
+                    Log.i(tag, "temperature = " + item.toString());
+                }
+                Log.i(tag, "temperature size = " + packet.getHrpItems().size());
+            }
+
+            //温度历史数据回调
+            // temperature history data call back
+            @Override
+            public void onTemperatureList(ApplicationLayerRateListPacket packet) {
+                super.onTemperatureList(packet);
+                for (ApplicationLayerRateItemPacket item : packet.getRateList()) {
+                    Log.i(tag, "temperature = " + item.toString());
+                }
+                Log.i(tag, "temperature size = " + packet.getRateList().size());
             }
 
             @Override

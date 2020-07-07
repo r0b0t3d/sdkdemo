@@ -21,6 +21,7 @@
     <string name="app_sleep">睡眠</string>
     <string name="app_rate">心率</string>
     <string name="app_bp">血压</string>
+    <string name="app_temp">温度</string>
     <string name="app_sync_data">同步数据</string>
     <string name="app_mac_address">耳机连接相关</string>
     <string name="app_language">语言</string>
@@ -169,4 +170,11 @@
 
     <string name="app_read_ear_mac">读取耳机地址</string>
     <string name="app_read_ear_status">读取耳机状态</string>
+
+    <string name="app_check_test_temp_status">检查温度测量状态</string>
+    <string name="app_read_temp_setting">读取温度设置</string>
+    <string name="app_set_temp_setting">设置温度设置</string>
+    <string name="app_temp_show">设备中显示温度</string>
+    <string name="app_temp_adjust">温度补偿</string>
+    <string name="app_temp_unit">温度单位设置</string>
 </resources>

@@ -21,6 +21,7 @@
     <string name="app_sleep">Sleep</string>
     <string name="app_rate">Heart rate</string>
     <string name="app_bp">Blood pressure</string>
+    <string name="app_temp">Temperature</string>
     <string name="app_sync_data">Sync device data</string>
     <string name="app_mac_address">Earphone connect</string>
     <string name="app_language">Language</string>
@@ -169,4 +170,11 @@
 
     <string name="app_read_ear_mac">Read ear phone mac</string>
     <string name="app_read_ear_status">Read ear phone status</string>
+
+    <string name="app_check_test_temp_status">Check temperature measure status</string>
+    <string name="app_read_temp_setting">Read temperature setting</string>
+    <string name="app_set_temp_setting">Set temperature setting</string>
+    <string name="app_temp_show">Show temperature on device</string>
+    <string name="app_temp_adjust">Adjust temperature </string>
+    <string name="app_temp_unit">Temperature unit</string>
 </resources>

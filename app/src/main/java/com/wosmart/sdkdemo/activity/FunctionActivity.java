@@ -114,6 +114,8 @@ public class FunctionActivity extends BaseActivity {
 
         Function macAddress = new Function(36, getString(R.string.app_mac_address));
 
+        Function temp = new Function(37, getString(R.string.app_temp));
+
         functions.add(login);
         functions.add(device);
         functions.add(time);
@@ -126,6 +128,7 @@ public class FunctionActivity extends BaseActivity {
         functions.add(sleep);
         functions.add(rate);
         functions.add(bp);
+        functions.add(temp);
         functions.add(querySportMode);
         functions.add(queryBattery);
         functions.add(notifySwitch);
@@ -304,6 +307,11 @@ public class FunctionActivity extends BaseActivity {
                         Intent macAddress = new Intent();
                         macAddress.setClass(FunctionActivity.this, EarPhoneActivity.class);
                         startActivity(macAddress);
+                        break;
+                    case 37:
+                        Intent temp = new Intent();
+                        temp.setClass(FunctionActivity.this, TempActivity.class);
+                        startActivity(temp);
                         break;
                 }
             }
