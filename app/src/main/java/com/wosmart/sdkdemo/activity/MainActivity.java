@@ -54,8 +54,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         addListener();
 
-//        startScan();
-        WbManager.getInstance(this).start();
+        startScan();
+//        WbManager.getInstance(this).start();
     }
 
     private void initView() {
