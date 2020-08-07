@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SdkDemo</string>
+    <string name="app_name">NodeScanner</string>
     <string name="app_scan">Scan</string>
     <string name="app_function">Function list</string>
     <string name="app_login">Login</string>
