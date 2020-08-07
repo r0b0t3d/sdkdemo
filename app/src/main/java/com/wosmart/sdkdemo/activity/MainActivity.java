@@ -3,6 +3,7 @@ package com.wosmart.sdkdemo.activity;
 import android.Manifest;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.le.ScanRecord;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.util.Log;
 
 import com.wosmart.sdkdemo.R;
 import com.wosmart.sdkdemo.manager.WbManager;
+import com.wosmart.sdkdemo.services.WbService;
 import com.wosmart.ukprotocollibary.WristbandManager;
 import com.wosmart.ukprotocollibary.WristbandManagerCallback;
 import com.wosmart.ukprotocollibary.WristbandScanCallback;
@@ -32,9 +34,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initData();
+        start();
+    }
 
-//        startScan();
-        WbManager.getInstance(this).start();
+    private void start() {
+        Intent i = new Intent(this, WbService.class);
+        startService(i);
     }
 
     private void initData() {
