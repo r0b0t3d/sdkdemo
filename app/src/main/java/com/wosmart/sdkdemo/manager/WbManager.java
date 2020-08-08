@@ -70,11 +70,12 @@ public class WbManager {
     }
 
     private void connect(final String mac, final String name) {
-
+        Log.e(TAG, "Connect " + mac + ", " + name);
         WristbandManager.getInstance(context).registerCallback(new WristbandManagerCallback() {
             @Override
             public void onConnectionStateChange(boolean status) {
                 super.onConnectionStateChange(status);
+                Log.e(TAG, "onConnectionStateChange " + status);
                 if (status) {
                     login();
                 } else {
@@ -221,6 +222,22 @@ public class WbManager {
         thread.start();
     }
 
+    private void setTempSetting() {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ApplicationLayerTemperatureControlPacket packet = new ApplicationLayerTemperatureControlPacket();
+                packet.setShow(true);
+                if (WristbandManager.getInstance(context).setTemperatureControl(packet)) {
+                    Log.e(TAG, "setTempSetting SUCCESS");
+                } else {
+                    Log.e(TAG, "setTempSetting FAIL");
+                }
+            }
+        });
+        thread.start();
+    }
+
     private void startMeasureTemp() {
         WristbandManager.getInstance(context).registerCallback(new WristbandManagerCallback() {
             @Override
@@ -243,6 +260,7 @@ public class WbManager {
                 Log.e(TAG, "temp status :" + status);
             }
         });
+        setTempSetting();
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
