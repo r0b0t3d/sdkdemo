@@ -17,6 +17,7 @@ import com.wosmart.ukprotocollibary.applicationlayer.ApplicationLayerHrpItemPack
 import com.wosmart.ukprotocollibary.applicationlayer.ApplicationLayerHrpPacket;
 import com.wosmart.ukprotocollibary.applicationlayer.ApplicationLayerTemperatureControlPacket;
 
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
@@ -170,7 +171,12 @@ public class MeasureTask extends CommonTask {
         }) {
             @Override
             public byte[] getBody() throws AuthFailureError {
-                return data.toJSON().toString().getBytes(StandardCharsets.UTF_8);
+                try {
+                    return data.toJSON().toString().getBytes("utf-8");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+                return null;
             }
         };
         RequestQueue queue = Volley.newRequestQueue(context);
