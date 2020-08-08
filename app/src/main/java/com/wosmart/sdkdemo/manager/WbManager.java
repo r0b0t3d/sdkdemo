@@ -70,11 +70,12 @@ public class WbManager {
     }
 
     private void connect(final String mac, final String name) {
-
+        Log.e(TAG, "Connect " + mac + ", " + name);
         WristbandManager.getInstance(context).registerCallback(new WristbandManagerCallback() {
             @Override
             public void onConnectionStateChange(boolean status) {
                 super.onConnectionStateChange(status);
+                Log.e(TAG, "onConnectionStateChange " + status);
                 if (status) {
                     login();
                 } else {
