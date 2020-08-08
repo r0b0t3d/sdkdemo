@@ -9,6 +9,7 @@ import com.wosmart.sdkdemo.manager.tasks.CommonTask;
 import com.wosmart.sdkdemo.manager.tasks.ConnectTask;
 import com.wosmart.sdkdemo.manager.tasks.DeviceInfoTask;
 import com.wosmart.sdkdemo.manager.tasks.LoginTask;
+import com.wosmart.sdkdemo.manager.tasks.SyncTimeTask;
 import com.wosmart.ukprotocollibary.WristbandManager;
 import com.wosmart.ukprotocollibary.WristbandManagerCallback;
 import com.wosmart.ukprotocollibary.WristbandScanCallback;
@@ -125,48 +126,19 @@ public class WbManager {
         task.start();
     }
 
-    private void readVersion() {
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                if (WristbandManager.getInstance(context).requestDeviceInfo()) {
-                    Log.e(TAG, "readVersion SUCCESS");
-                    readFunction();
-                } else {
-                    Log.e(TAG, "readVersion FAIL");
-                }
-            }
-        });
-        thread.start();
-    }
-
-    private void readFunction() {
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                if (WristbandManager.getInstance(context).sendFunctionReq()) {
-                    Log.e(TAG, "readFunction SUCCESS");
-                } else {
-                    Log.e(TAG, "readFunction FAIL");
-                }
-            }
-        });
-        thread.start();
-    }
-
     private void syncTime() {
-        Thread thread = new Thread(new Runnable() {
+        SyncTimeTask task = new SyncTimeTask(WristbandManager.getInstance(context), new CommonTask.Callback() {
             @Override
-            public void run() {
-                if (WristbandManager.getInstance(context).setTimeSync()) {
-                    Log.e(TAG, "syncTime SUCCESS");
-                    startMeasure();
-                } else {
-                    Log.e(TAG, "syncTime FAILED");
-                }
+            public void onSuccess(Object... args) {
+                startMeasure();
+            }
+
+            @Override
+            public void onFailed() {
+
             }
         });
-        thread.start();
+        task.start();
     }
 
     private void startMeasure() {
