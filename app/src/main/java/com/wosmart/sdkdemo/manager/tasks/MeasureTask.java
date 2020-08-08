@@ -158,6 +158,7 @@ public class MeasureTask extends CommonTask {
             con.setRequestProperty("Accept", "application/json");
             con.setDoOutput(true);
             String jsonBody = data.toJSON();
+            Log.e(TAG, "Upload " + jsonBody);
             try(OutputStream os = con.getOutputStream()) {
                 byte[] input = jsonBody.getBytes(StandardCharsets.UTF_8);
                 os.write(input, 0, input.length);
