@@ -222,6 +222,22 @@ public class WbManager {
         thread.start();
     }
 
+    private void setTempSetting() {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ApplicationLayerTemperatureControlPacket packet = new ApplicationLayerTemperatureControlPacket();
+                packet.setShow(true);
+                if (WristbandManager.getInstance(context).setTemperatureControl(packet)) {
+                    Log.e(TAG, "setTempSetting SUCCESS");
+                } else {
+                    Log.e(TAG, "setTempSetting FAIL");
+                }
+            }
+        });
+        thread.start();
+    }
+
     private void startMeasureTemp() {
         WristbandManager.getInstance(context).registerCallback(new WristbandManagerCallback() {
             @Override
@@ -244,6 +260,7 @@ public class WbManager {
                 Log.e(TAG, "temp status :" + status);
             }
         });
+        setTempSetting();
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
