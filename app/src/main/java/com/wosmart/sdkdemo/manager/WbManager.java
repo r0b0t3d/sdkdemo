@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.wosmart.sdkdemo.manager.tasks.CommonTask;
 import com.wosmart.sdkdemo.manager.tasks.ConnectTask;
+import com.wosmart.sdkdemo.manager.tasks.LoginTask;
 import com.wosmart.ukprotocollibary.WristbandManager;
 import com.wosmart.ukprotocollibary.WristbandManagerCallback;
 import com.wosmart.ukprotocollibary.WristbandScanCallback;
@@ -85,26 +86,6 @@ public class WbManager {
             }
         }, mac);
         connectTask.start();
-//        WristbandManager.getInstance(context).registerCallback(new WristbandManagerCallback() {
-//            @Override
-//            public void onConnectionStateChange(boolean status) {
-//                super.onConnectionStateChange(status);
-//                Log.e(TAG, "onConnectionStateChange " + status);
-//                if (status) {
-//                    login();
-//                } else {
-//                    disconnect();
-//                }
-//            }
-//
-//            @Override
-//            public void onError(int error) {
-//                super.onError(error);
-//            }
-//        });
-//
-//        WristbandManager.getInstance(context).connect(mac);
-
     }
 
     private void disconnect() {
@@ -112,21 +93,21 @@ public class WbManager {
     }
 
     public void login() {
-        WristbandManager.getInstance(context).registerCallback(new WristbandManagerCallback() {
+        Log.e(TAG, "Start login");
+        final LoginTask loginTask = new LoginTask(WristbandManager.getInstance(context), new CommonTask.Callback() {
             @Override
-            public void onLoginStateChange(int state) {
-                super.onLoginStateChange(state);
-                if (state == WristbandManager.STATE_WRIST_LOGIN) {
-                    Log.e(TAG, "Login success");
+            public void onSuccess(Object... args) {
+                Log.e(TAG, "Login SUCCESS");
+                readDeviceInformation();
+            }
 
-                    readDeviceInformation();
-                }
+            @Override
+            public void onFailed() {
+                Log.e(TAG, "Login FAILED");
             }
         });
-        WristbandManager.getInstance(context).startLoginProcess("1234567890");
+        loginTask.start();
     }
-
-
 
     public void readDeviceInformation() {
         WristbandManager.getInstance(context).registerCallback(new WristbandManagerCallback() {

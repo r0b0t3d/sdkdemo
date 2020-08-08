@@ -9,8 +9,8 @@ public class ConnectTask extends CommonTask {
     private static final String TAG = "ConnectTask";
     private String mac;
 
-    public ConnectTask(WristbandManager wristbandManager, Callback c, String mac) {
-        super(wristbandManager, c);
+    public ConnectTask(WristbandManager manager, Callback c, String mac) {
+        super(manager, c);
         this.mac = mac;
 
         wristbandManager.registerCallback(new WristbandManagerCallback() {
@@ -23,12 +23,15 @@ public class ConnectTask extends CommonTask {
                 } else {
                     callback.onFailed();
                 }
+                wristbandManager.unRegisterCallback(this);
+                interrupt();
             }
 
             @Override
             public void onError(int error) {
                 super.onError(error);
                 callback.onFailed();
+                wristbandManager.unRegisterCallback(this);
             }
         });
     }
