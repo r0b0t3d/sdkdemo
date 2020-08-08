@@ -8,6 +8,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.wosmart.sdkdemo.models.ZoneReport;
@@ -17,10 +18,14 @@ import com.wosmart.ukprotocollibary.applicationlayer.ApplicationLayerHrpItemPack
 import com.wosmart.ukprotocollibary.applicationlayer.ApplicationLayerHrpPacket;
 import com.wosmart.ukprotocollibary.applicationlayer.ApplicationLayerTemperatureControlPacket;
 
+import org.json.JSONObject;
+
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MeasureTask extends CommonTask {
     private static final String TAG = "MeasureTask";
@@ -158,27 +163,17 @@ public class MeasureTask extends CommonTask {
 
     private void uploadData(final ZoneReport data) {
         String url = "http://41.79.79.221/zonereport";
-        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, data.toJSON(), new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(String response) {
-                Log.e(TAG, "Response:  " + response);
+            public void onResponse(JSONObject response) {
+                Log.e(TAG, "Response:  " + response.toString());
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e(TAG, error.getMessage());
             }
-        }) {
-            @Override
-            public byte[] getBody() throws AuthFailureError {
-                try {
-                    return data.toJSON().toString().getBytes("utf-8");
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
-                return null;
-            }
-        };
+        });
         RequestQueue queue = Volley.newRequestQueue(context);
         queue.add(request);
     }
