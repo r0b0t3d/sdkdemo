@@ -9,6 +9,7 @@ import com.wosmart.sdkdemo.manager.tasks.CommonTask;
 import com.wosmart.sdkdemo.manager.tasks.ConnectTask;
 import com.wosmart.sdkdemo.manager.tasks.DeviceInfoTask;
 import com.wosmart.sdkdemo.manager.tasks.LoginTask;
+import com.wosmart.sdkdemo.manager.tasks.MeasureTask;
 import com.wosmart.sdkdemo.manager.tasks.SyncTimeTask;
 import com.wosmart.ukprotocollibary.WristbandManager;
 import com.wosmart.ukprotocollibary.WristbandManagerCallback;
@@ -142,33 +143,45 @@ public class WbManager {
     }
 
     private void startMeasure() {
-        WristbandManager.getInstance(context).registerCallback(new WristbandManagerCallback() {
+        MeasureTask task = new MeasureTask(WristbandManager.getInstance(context), new CommonTask.Callback() {
             @Override
-            public void onHrpDataReceiveIndication(ApplicationLayerHrpPacket packet) {
-                super.onHrpDataReceiveIndication(packet);
-                for (ApplicationLayerHrpItemPacket item : packet.getHrpItems()) {
-                    Log.e(TAG, "hr value :" + item.getValue());
-                }
+            public void onSuccess(Object... args) {
+
             }
 
             @Override
-            public void onDeviceCancelSingleHrpRead() {
-                super.onDeviceCancelSingleHrpRead();
-                Log.e(TAG, "stop measure hr ");
+            public void onFailed() {
+
             }
         });
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                if (WristbandManager.getInstance(context).readHrpValue()) {
-                    Log.e(TAG, "startMeasure SUCCESS");
-                    startMeasureTemp();
-                } else {
-                    Log.e(TAG, "startMeasure FAIL");
-                }
-            }
-        });
-        thread.start();
+        task.start();
+//        WristbandManager.getInstance(context).registerCallback(new WristbandManagerCallback() {
+//            @Override
+//            public void onHrpDataReceiveIndication(ApplicationLayerHrpPacket packet) {
+//                super.onHrpDataReceiveIndication(packet);
+//                for (ApplicationLayerHrpItemPacket item : packet.getHrpItems()) {
+//                    Log.e(TAG, "hr value :" + item.getValue());
+//                }
+//            }
+//
+//            @Override
+//            public void onDeviceCancelSingleHrpRead() {
+//                super.onDeviceCancelSingleHrpRead();
+//                Log.e(TAG, "stop measure hr ");
+//            }
+//        });
+//        Thread thread = new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                if (WristbandManager.getInstance(context).readHrpValue()) {
+//                    Log.e(TAG, "startMeasure SUCCESS");
+//                    startMeasureTemp();
+//                } else {
+//                    Log.e(TAG, "startMeasure FAIL");
+//                }
+//            }
+//        });
+//        thread.start();
     }
 
     private void stopMeasure() {
