@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.wosmart.sdkdemo.manager.tasks.CommonTask;
 import com.wosmart.sdkdemo.manager.tasks.ConnectTask;
+import com.wosmart.sdkdemo.manager.tasks.DeviceInfoTask;
 import com.wosmart.sdkdemo.manager.tasks.LoginTask;
 import com.wosmart.ukprotocollibary.WristbandManager;
 import com.wosmart.ukprotocollibary.WristbandManagerCallback;
@@ -110,23 +111,18 @@ public class WbManager {
     }
 
     public void readDeviceInformation() {
-        WristbandManager.getInstance(context).registerCallback(new WristbandManagerCallback() {
-
+        DeviceInfoTask task = new DeviceInfoTask(WristbandManager.getInstance(context), new CommonTask.Callback() {
             @Override
-            public void onDeviceInfo(ApplicationLayerDeviceInfoPacket packet) {
-                super.onDeviceInfo(packet);
-                Log.e(TAG, "device info = " + packet.toString());
-            }
-
-            @Override
-            public void onDeviceFunction(ApplicationLayerFunctionPacket packet) {
-                super.onDeviceFunction(packet);
-                Log.e(TAG, "function info = " + packet.toString());
+            public void onSuccess(Object... args) {
                 syncTime();
             }
-        });
 
-        readVersion();
+            @Override
+            public void onFailed() {
+
+            }
+        });
+        task.start();
     }
 
     private void readVersion() {

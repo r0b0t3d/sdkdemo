@@ -13,8 +13,8 @@ public class LoginTask extends CommonTask {
     }
 
     @Override
-    void initWristbandManagerCallback() {
-        wristbandManagerCallback = new WristbandManagerCallback() {
+    WristbandManagerCallback initWristbandManagerCallback() {
+        return new WristbandManagerCallback() {
             @Override
             public void onLoginStateChange(int state) {
                 super.onLoginStateChange(state);

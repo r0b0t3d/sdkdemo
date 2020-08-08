@@ -15,8 +15,8 @@ public class ConnectTask extends CommonTask {
     }
 
     @Override
-    void initWristbandManagerCallback() {
-        wristbandManagerCallback = new WristbandManagerCallback() {
+    WristbandManagerCallback initWristbandManagerCallback() {
+        return new WristbandManagerCallback() {
             @Override
             public void onConnectionStateChange(boolean status) {
                 super.onConnectionStateChange(status);

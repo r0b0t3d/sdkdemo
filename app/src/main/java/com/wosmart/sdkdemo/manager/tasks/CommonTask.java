@@ -12,11 +12,11 @@ public abstract class CommonTask extends Thread {
         this.wristbandManager = wristbandManager;
         this.callback = callback;
 
-        initWristbandManagerCallback();
+        wristbandManagerCallback = initWristbandManagerCallback();
         wristbandManager.registerCallback(wristbandManagerCallback);
     }
 
-    abstract void initWristbandManagerCallback();
+    abstract WristbandManagerCallback initWristbandManagerCallback();
 
     protected void onSuccess(Object ...params) {
         if (!isInterrupted()) {
