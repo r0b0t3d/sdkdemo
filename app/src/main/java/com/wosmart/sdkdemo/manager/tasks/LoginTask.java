@@ -7,11 +7,13 @@ import com.wosmart.ukprotocollibary.WristbandManagerCallback;
 
 public class LoginTask extends CommonTask {
     private static final String TAG = "LoginTask";
-    private WristbandManagerCallback wristbandManagerCallback;
 
     public LoginTask(WristbandManager wristbandManager, Callback c) {
         super(wristbandManager, c);
+    }
 
+    @Override
+    void initWristbandManagerCallback() {
         wristbandManagerCallback = new WristbandManagerCallback() {
             @Override
             public void onLoginStateChange(int state) {
@@ -23,7 +25,6 @@ public class LoginTask extends CommonTask {
                 }
             }
         };
-        wristbandManager.registerCallback(wristbandManagerCallback);
     }
 
     @Override
@@ -31,4 +32,5 @@ public class LoginTask extends CommonTask {
         super.run();
         wristbandManager.startLoginProcess("1234567890");
     }
+
 }
