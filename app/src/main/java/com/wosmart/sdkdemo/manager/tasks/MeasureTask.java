@@ -2,14 +2,13 @@ package com.wosmart.sdkdemo.manager.tasks;
 
 import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.wosmart.sdkdemo.models.ZoneReport;
 import com.wosmart.ukprotocollibary.WristbandManager;
@@ -18,19 +17,9 @@ import com.wosmart.ukprotocollibary.applicationlayer.ApplicationLayerHrpItemPack
 import com.wosmart.ukprotocollibary.applicationlayer.ApplicationLayerHrpPacket;
 import com.wosmart.ukprotocollibary.applicationlayer.ApplicationLayerTemperatureControlPacket;
 
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class MeasureTask extends CommonTask {
     private static final String TAG = "MeasureTask";
@@ -164,12 +153,12 @@ public class MeasureTask extends CommonTask {
         }
     }
 
-    private void uploadData(ZoneReport data) {
+    private void uploadData(final ZoneReport data) {
         String url = "http://41.79.79.221/zonereport";
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, data.toJSON(), new Response.Listener<JSONObject>() {
+        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
-            public void onResponse(JSONObject response) {
-                Log.e(TAG, "Response:  " + response.toString());
+            public void onResponse(String response) {
+                Log.e(TAG, "Response:  " + response);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -178,10 +167,8 @@ public class MeasureTask extends CommonTask {
             }
         }) {
             @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                final Map<String, String> headers = new HashMap<>();
-                headers.put("Authorization", "Basic " + "c2FnYXJAa2FydHBheS5jb206cnMwM2UxQUp5RnQzNkQ5NDBxbjNmUDgzNVE3STAyNzI=");//put your token here
-                return headers;
+            public byte[] getBody() throws AuthFailureError {
+                return data.toJSON().toString().getBytes(StandardCharsets.UTF_8);
             }
         };
         RequestQueue queue = Volley.newRequestQueue(context);
