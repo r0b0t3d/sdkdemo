@@ -1,13 +1,24 @@
 package com.wosmart.sdkdemo.manager.tasks;
 
+import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.wosmart.sdkdemo.models.ZoneReport;
 import com.wosmart.ukprotocollibary.WristbandManager;
 import com.wosmart.ukprotocollibary.WristbandManagerCallback;
 import com.wosmart.ukprotocollibary.applicationlayer.ApplicationLayerHrpItemPacket;
 import com.wosmart.ukprotocollibary.applicationlayer.ApplicationLayerHrpPacket;
 import com.wosmart.ukprotocollibary.applicationlayer.ApplicationLayerTemperatureControlPacket;
+
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,17 +28,21 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MeasureTask extends CommonTask {
     private static final String TAG = "MeasureTask";
     private final String mac;
+    private final Context context;
     private List<Integer> hrValues;
     private float tempValue = 0f;
     private boolean isDataGathered = false;
 
-    public MeasureTask(WristbandManager wristbandManager, Callback callback, String mac) {
+    public MeasureTask(Context context, WristbandManager wristbandManager, Callback callback, String mac) {
         super(wristbandManager, callback);
+        this.context = context;
         this.mac = mac;
         hrValues = new ArrayList<>();
     }
@@ -150,31 +165,26 @@ public class MeasureTask extends CommonTask {
     }
 
     private void uploadData(ZoneReport data) {
-        try {
-            URL url = new URL("http://41.79.79.221/zonereport");
-            HttpURLConnection con = (HttpURLConnection)url.openConnection();
-            con.setRequestMethod("POST");
-            con.setRequestProperty("Content-Type", "application/json; utf-8");
-            con.setRequestProperty("Accept", "application/json");
-            con.setDoOutput(true);
-            String jsonBody = data.toJSON();
-            Log.e(TAG, "Upload " + jsonBody);
-            try(OutputStream os = con.getOutputStream()) {
-                byte[] input = jsonBody.getBytes(StandardCharsets.UTF_8);
-                os.write(input, 0, input.length);
+        String url = "http://41.79.79.221/zonereport";
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, data.toJSON(), new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.e(TAG, "Response:  " + response.toString());
             }
-            try(BufferedReader br = new BufferedReader(
-                    new InputStreamReader(con.getInputStream(), StandardCharsets.UTF_8))) {
-                StringBuilder response = new StringBuilder();
-                String responseLine = null;
-                while ((responseLine = br.readLine()) != null) {
-                    response.append(responseLine.trim());
-                }
-                Log.e(TAG, "Upload zone report " + response.toString());
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, error.getMessage());
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-            Log.e(TAG, e.getMessage());
-        }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                final Map<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "Basic " + "c2FnYXJAa2FydHBheS5jb206cnMwM2UxQUp5RnQzNkQ5NDBxbjNmUDgzNVE3STAyNzI=");//put your token here
+                return headers;
+            }
+        };
+        RequestQueue queue = Volley.newRequestQueue(context);
+        queue.add(request);
     }
 }

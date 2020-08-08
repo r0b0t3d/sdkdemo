@@ -13,7 +13,7 @@ public class ZoneReport {
     public List<Integer> Heartrate_arr;
     public float Temperature;
 
-    public String toJSON() {
+    public JSONObject toJSON() {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("zoneName", zoneName);
@@ -25,10 +25,9 @@ public class ZoneReport {
             }
             jsonObject.put("Heartrate_arr", hrJsonArray);
             jsonObject.put("Temperature", Temperature);
-            return jsonObject.toString();
         } catch (JSONException e) {
             e.printStackTrace();
-            return "";
         }
+        return jsonObject;
     }
 }
