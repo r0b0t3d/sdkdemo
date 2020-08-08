@@ -5,7 +5,7 @@ import org.json.JSONObject;
 
 import java.util.List;
 
-public class ZoneData {
+public class ZoneReport {
     public String zoneName = "test";
     public String zoneID = "test";
     public String BandID;

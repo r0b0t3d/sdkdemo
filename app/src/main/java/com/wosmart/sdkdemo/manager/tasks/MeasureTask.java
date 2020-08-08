@@ -2,7 +2,7 @@ package com.wosmart.sdkdemo.manager.tasks;
 
 import android.util.Log;
 
-import com.wosmart.sdkdemo.models.ZoneData;
+import com.wosmart.sdkdemo.models.ZoneReport;
 import com.wosmart.ukprotocollibary.WristbandManager;
 import com.wosmart.ukprotocollibary.WristbandManagerCallback;
 import com.wosmart.ukprotocollibary.applicationlayer.ApplicationLayerHrpItemPacket;
@@ -120,7 +120,7 @@ public class MeasureTask extends CommonTask {
                 sleep(1000);
                 if (isDataGathered) {
                     stopMeasure();
-                    ZoneData data = new ZoneData();
+                    ZoneReport data = new ZoneReport();
                     data.Heartrate_arr = hrValues;
                     data.Temperature = tempValue;
                     data.BandID = mac;
@@ -149,7 +149,7 @@ public class MeasureTask extends CommonTask {
         }
     }
 
-    private void uploadData(ZoneData data) {
+    private void uploadData(ZoneReport data) {
         try {
             URL url = new URL("http://41.79.79.221/zonereport");
             HttpURLConnection con = (HttpURLConnection)url.openConnection();
@@ -169,7 +169,7 @@ public class MeasureTask extends CommonTask {
                 while ((responseLine = br.readLine()) != null) {
                     response.append(responseLine.trim());
                 }
-                Log.e(TAG, response.toString());
+                Log.e(TAG, "Upload zone report " + response.toString());
             }
         } catch (IOException e) {
             e.printStackTrace();
