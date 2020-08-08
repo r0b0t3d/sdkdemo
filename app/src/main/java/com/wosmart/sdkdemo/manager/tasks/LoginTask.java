@@ -23,7 +23,7 @@ public class LoginTask extends CommonTask {
                 }
             }
         };
-
+        wristbandManager.registerCallback(wristbandManagerCallback);
     }
 
     @Override
