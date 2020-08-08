@@ -100,7 +100,7 @@ public class DeviceManager {
     }
 
     private void startMeasure() {
-        MeasureTask task = new MeasureTask(WristbandManager.getInstance(context), new CommonTask.Callback() {
+        MeasureTask task = new MeasureTask(context, WristbandManager.getInstance(context), new CommonTask.Callback() {
             @Override
             public void onSuccess(Object... args) {
                 // Finish
