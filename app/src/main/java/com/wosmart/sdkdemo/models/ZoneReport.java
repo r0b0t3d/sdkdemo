@@ -1,5 +1,6 @@
 package com.wosmart.sdkdemo.models;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -18,7 +19,11 @@ public class ZoneReport {
             jsonObject.put("zoneName", zoneName);
             jsonObject.put("zoneID", zoneID);
             jsonObject.put("BandID", BandID);
-            jsonObject.put("Heartrate_arr", Heartrate_arr);
+            JSONArray hrJsonArray = new JSONArray();
+            for (Integer hr : Heartrate_arr) {
+                hrJsonArray.put(hr);
+            }
+            jsonObject.put("Heartrate_arr", hrJsonArray);
             jsonObject.put("Temperature", Temperature);
             return jsonObject.toString();
         } catch (JSONException e) {
