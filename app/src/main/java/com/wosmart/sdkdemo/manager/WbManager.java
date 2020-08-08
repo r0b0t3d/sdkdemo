@@ -5,6 +5,8 @@ import android.bluetooth.le.ScanRecord;
 import android.content.Context;
 import android.util.Log;
 
+import com.wosmart.sdkdemo.manager.tasks.CommonTask;
+import com.wosmart.sdkdemo.manager.tasks.ConnectTask;
 import com.wosmart.ukprotocollibary.WristbandManager;
 import com.wosmart.ukprotocollibary.WristbandManagerCallback;
 import com.wosmart.ukprotocollibary.WristbandScanCallback;
@@ -71,25 +73,37 @@ public class WbManager {
 
     private void connect(final String mac, final String name) {
         Log.e(TAG, "Connect " + mac + ", " + name);
-        WristbandManager.getInstance(context).registerCallback(new WristbandManagerCallback() {
+        ConnectTask connectTask = new ConnectTask(WristbandManager.getInstance(context), new CommonTask.Callback() {
             @Override
-            public void onConnectionStateChange(boolean status) {
-                super.onConnectionStateChange(status);
-                Log.e(TAG, "onConnectionStateChange " + status);
-                if (status) {
-                    login();
-                } else {
-                    disconnect();
-                }
+            public void onSuccess(Object... args) {
+                login();
             }
 
             @Override
-            public void onError(int error) {
-                super.onError(error);
+            public void onFailed() {
+                disconnect();
             }
-        });
-
-        WristbandManager.getInstance(context).connect(mac);
+        }, mac);
+        connectTask.start();
+//        WristbandManager.getInstance(context).registerCallback(new WristbandManagerCallback() {
+//            @Override
+//            public void onConnectionStateChange(boolean status) {
+//                super.onConnectionStateChange(status);
+//                Log.e(TAG, "onConnectionStateChange " + status);
+//                if (status) {
+//                    login();
+//                } else {
+//                    disconnect();
+//                }
+//            }
+//
+//            @Override
+//            public void onError(int error) {
+//                super.onError(error);
+//            }
+//        });
+//
+//        WristbandManager.getInstance(context).connect(mac);
 
     }
 
