@@ -169,10 +169,11 @@ public class MeasureTask extends CommonTask {
                 while ((responseLine = br.readLine()) != null) {
                     response.append(responseLine.trim());
                 }
-                System.out.println(response.toString());
+                Log.e(TAG, response.toString());
             }
         } catch (IOException e) {
             e.printStackTrace();
+            Log.e(TAG, e.getMessage());
         }
     }
 }

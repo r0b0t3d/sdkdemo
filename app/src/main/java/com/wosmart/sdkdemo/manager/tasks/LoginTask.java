@@ -21,7 +21,7 @@ public class LoginTask extends CommonTask {
                 Log.e(TAG, "Login state " + state);
                 if (state == WristbandManager.STATE_WRIST_LOGIN) {
                     Log.e(TAG, "Login success");
-                    callback.onSuccess();
+                    onSuccess();
                 }
             }
         };

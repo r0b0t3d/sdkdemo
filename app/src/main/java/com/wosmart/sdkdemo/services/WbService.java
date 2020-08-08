@@ -26,7 +26,7 @@ public class WbService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.d(TAG, "onStartCommand");
+        Log.e(TAG, "onStartCommand");
         WbManager.getInstance(this).start();
         return START_STICKY;
     }
