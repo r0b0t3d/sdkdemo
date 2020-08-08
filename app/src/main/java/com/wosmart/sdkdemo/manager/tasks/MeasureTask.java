@@ -101,6 +101,8 @@ public class MeasureTask extends CommonTask {
 
         ApplicationLayerTemperatureControlPacket packet = new ApplicationLayerTemperatureControlPacket();
         packet.setShow(true);
+        packet.setCelsiusUnit(true);
+        packet.setAdjust(true);
         if (wristbandManager.setTemperatureControl(packet)) {
             Log.e(TAG, "setTempSetting SUCCESS");
         } else {
