@@ -21,12 +21,14 @@ import java.util.List;
 
 public class MeasureTask extends CommonTask {
     private static final String TAG = "MeasureTask";
+    private final String mac;
     private List<Integer> hrValues;
     private float tempValue = 0f;
     private boolean isDataGathered = false;
 
-    public MeasureTask(WristbandManager wristbandManager, Callback callback) {
+    public MeasureTask(WristbandManager wristbandManager, Callback callback, String mac) {
         super(wristbandManager, callback);
+        this.mac = mac;
         hrValues = new ArrayList<>();
     }
 
@@ -121,6 +123,7 @@ public class MeasureTask extends CommonTask {
                     ZoneData data = new ZoneData();
                     data.Heartrate_arr = hrValues;
                     data.Temperature = tempValue;
+                    data.BandID = mac;
                     uploadData(data);
                     onSuccess();
                     break;
