@@ -1,4 +1,4 @@
-package com.wosmart.sdkdemo.services;
+package com.northroom.bhs.nodescanner.services;
 
 import android.app.Service;
 import android.content.Intent;
@@ -7,7 +7,7 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
-import com.wosmart.sdkdemo.manager.WbManager;
+import com.northroom.bhs.nodescanner.manager.WbManager;
 
 public class WbService extends Service {
     private static final String TAG = "WbService";

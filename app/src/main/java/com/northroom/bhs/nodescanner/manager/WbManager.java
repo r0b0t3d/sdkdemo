@@ -1,10 +1,10 @@
-package com.wosmart.sdkdemo.manager;
+package com.northroom.bhs.nodescanner.manager;
 
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.util.Log;
 
-import com.wosmart.sdkdemo.manager.tasks.ScanTask;
+import com.northroom.bhs.nodescanner.manager.tasks.ScanTask;
 import com.wosmart.ukprotocollibary.WristbandManager;
 
 import java.util.ArrayList;

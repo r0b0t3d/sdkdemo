@@ -1,4 +1,4 @@
-package com.wosmart.sdkdemo.manager.tasks;
+package com.northroom.bhs.nodescanner.manager.tasks;
 
 import android.content.Context;
 import android.util.Log;
@@ -9,7 +9,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.wosmart.sdkdemo.models.ZoneReport;
+import com.northroom.bhs.nodescanner.models.ZoneReport;
 import com.wosmart.ukprotocollibary.WristbandManager;
 import com.wosmart.ukprotocollibary.WristbandManagerCallback;
 import com.wosmart.ukprotocollibary.applicationlayer.ApplicationLayerHrpItemPacket;

@@ -1,4 +1,4 @@
-package com.wosmart.sdkdemo.manager.tasks;
+package com.northroom.bhs.nodescanner.manager.tasks;
 
 import android.util.Log;
 

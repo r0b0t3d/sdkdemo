@@ -1,4 +1,4 @@
-package com.wosmart.sdkdemo.models;
+package com.northroom.bhs.nodescanner.models;
 
 import org.json.JSONArray;
 import org.json.JSONException;

@@ -1,4 +1,4 @@
-package com.wosmart.sdkdemo.activity;
+package com.northroom.bhs.nodescanner.activity;
 
 import android.Manifest;
 import android.app.AlarmManager;
@@ -15,9 +15,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.wosmart.sdkdemo.R;
-import com.wosmart.sdkdemo.receivers.MyAlarmReceiver;
-import com.wosmart.sdkdemo.services.WbService;
+import com.northroom.bhs.nodescanner.R;
+import com.northroom.bhs.nodescanner.receivers.MyAlarmReceiver;
+import com.northroom.bhs.nodescanner.services.WbService;
 
 public class MainActivity extends AppCompatActivity {
     @Override
@@ -80,7 +80,6 @@ public class MainActivity extends AppCompatActivity {
     private void checkStoragePermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                //未获得授权
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0x02);
             }
         }

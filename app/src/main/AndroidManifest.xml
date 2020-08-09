@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.wosmart.sdkdemo">
+    package="com.northroom.bhs.nodescanner">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -15,19 +15,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".activity.MainActivity">
+        <activity android:name="com.northroom.bhs.nodescanner.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <service
-            android:name=".services.WbService"
+            android:name="com.northroom.bhs.nodescanner.services.WbService"
             android:exported="false" />
         <receiver
-            android:name=".receivers.MyAlarmReceiver"
+            android:name="com.northroom.bhs.nodescanner.receivers.MyAlarmReceiver"
             android:process=":remote" />
-        <receiver android:name=".receivers.BootBroadcastReceiver">
+        <receiver android:name="com.northroom.bhs.nodescanner.receivers.BootBroadcastReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>

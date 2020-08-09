@@ -1,4 +1,4 @@
-package com.wosmart.sdkdemo;
+package com.northroom.sdkdemo;
 
 import android.content.Context;
 import androidx.test.platform.app.InstrumentationRegistry;

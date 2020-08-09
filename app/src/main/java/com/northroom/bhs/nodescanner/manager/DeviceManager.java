@@ -1,14 +1,14 @@
-package com.wosmart.sdkdemo.manager;
+package com.northroom.bhs.nodescanner.manager;
 
 import android.content.Context;
 import android.util.Log;
 
-import com.wosmart.sdkdemo.manager.tasks.CommonTask;
-import com.wosmart.sdkdemo.manager.tasks.ConnectTask;
-import com.wosmart.sdkdemo.manager.tasks.DeviceInfoTask;
-import com.wosmart.sdkdemo.manager.tasks.LoginTask;
-import com.wosmart.sdkdemo.manager.tasks.MeasureTask;
-import com.wosmart.sdkdemo.manager.tasks.SyncTimeTask;
+import com.northroom.bhs.nodescanner.manager.tasks.CommonTask;
+import com.northroom.bhs.nodescanner.manager.tasks.ConnectTask;
+import com.northroom.bhs.nodescanner.manager.tasks.DeviceInfoTask;
+import com.northroom.bhs.nodescanner.manager.tasks.LoginTask;
+import com.northroom.bhs.nodescanner.manager.tasks.MeasureTask;
+import com.northroom.bhs.nodescanner.manager.tasks.SyncTimeTask;
 import com.wosmart.ukprotocollibary.WristbandManager;
 
 import java.util.concurrent.atomic.AtomicBoolean;
