@@ -1,15 +1,13 @@
 package com.wosmart.sdkdemo.manager;
 
 import android.bluetooth.BluetoothDevice;
-import android.bluetooth.le.ScanRecord;
 import android.content.Context;
 import android.util.Log;
 
+import com.wosmart.sdkdemo.manager.tasks.ScanTask;
 import com.wosmart.ukprotocollibary.WristbandManager;
-import com.wosmart.ukprotocollibary.WristbandScanCallback;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -46,32 +44,20 @@ public class WbManager {
         isScanning.set(true);
         devices = new ArrayList<>();
         Log.e(TAG, "start scan");
-        WristbandManager.getInstance(context).startScan(new WristbandScanCallback() {
+        ScanTask task = new ScanTask(WristbandManager.getInstance(context), new ScanTask.ScanTaskListener() {
             @Override
-            public void onWristbandDeviceFind(BluetoothDevice device, int rssi, byte[] scanRecord) {
-                super.onWristbandDeviceFind(device, rssi, scanRecord);
+            public void onDeviceFound(BluetoothDevice device) {
                 Log.e(TAG, "Device found " + device.getAddress());
                 devices.add(device);
                 processDevice();
             }
 
             @Override
-            public void onWristbandDeviceFind(BluetoothDevice device, int rssi, ScanRecord scanRecord) {
-                super.onWristbandDeviceFind(device, rssi, scanRecord);
-            }
-
-            @Override
-            public void onLeScanEnable(boolean enable) {
-                super.onLeScanEnable(enable);
-                if (!enable) {
-                }
-            }
-
-            @Override
-            public void onWristbandLoginStateChange(boolean connected) {
-                super.onWristbandLoginStateChange(connected);
+            public void onStopScan() {
+                stopScan();
             }
         });
+        task.start();
     }
 
     private void stopScan() {
@@ -88,9 +74,6 @@ public class WbManager {
         deviceManager.process(device.getAddress(), new DeviceManager.DeviceManagerListener() {
             @Override
             public void onFinish() {
-                if (isScanning.get()) {
-                    stopScan();
-                }
                 processDevice();
             }
         });
