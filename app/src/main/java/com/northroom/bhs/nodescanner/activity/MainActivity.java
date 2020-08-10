@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -15,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.northroom.bhs.nodescanner.AppExceptionHandler;
 import com.northroom.bhs.nodescanner.R;
 import com.northroom.bhs.nodescanner.receivers.MyAlarmReceiver;
 import com.northroom.bhs.nodescanner.services.WbService;
@@ -33,6 +35,14 @@ public class MainActivity extends AppCompatActivity {
         initData();
         start();
         scheduleAlarm();
+
+        PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
+        PowerManager.WakeLock wakeLock;
+        if (powerManager != null) {
+            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
+                    "NodeScanner::WB");
+            wakeLock.acquire();
+        }
     }
 
     private void forceCrash() {
@@ -65,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initData() {
+        Thread.setDefaultUncaughtExceptionHandler(new AppExceptionHandler(this));
         checkStoragePermission();
         checkLocationPermission();
     }
