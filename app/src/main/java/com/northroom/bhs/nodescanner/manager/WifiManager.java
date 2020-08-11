@@ -54,8 +54,10 @@ public class WifiManager {
             for (ScanResult result : scanResults) {
                 if (result.SSID.equals(Configs.WIFI_SSID)) {
                     connectWifi(Configs.WIFI_SSID, Configs.WIFI_PASSWORD);
+                    return;
                 }
             }
+            Log.e(TAG, "Could not found wifi " + Configs.WIFI_SSID);
         }).start();
     }
 
