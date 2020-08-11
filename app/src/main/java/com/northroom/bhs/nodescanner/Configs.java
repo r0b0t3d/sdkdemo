@@ -5,6 +5,6 @@ public class Configs {
 //    public static final String WIFI_SSID = "Betram";
 //    public static final String WIFI_PASSWORD = "B3tr@m321!";
 
-    public static final String WIFI_SSID = "RustleThyJimmies";
+    public static final String WIFI_SSID = "RustleThyJimmies_ext";
     public static final String WIFI_PASSWORD = "Pandaza2806!";
 }
