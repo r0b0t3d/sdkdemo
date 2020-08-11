@@ -8,9 +8,13 @@ import com.wosmart.ukprotocollibary.WristbandManager;
 import com.wosmart.ukprotocollibary.WristbandManagerCallback;
 import com.wosmart.ukprotocollibary.WristbandScanCallback;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class ScanTask extends CommonTask {
     private static final String TAG = "ScanTask";
     private ScanTaskListener listener;
+    private Map<String, Boolean> devicesMap;
 
     public ScanTask(WristbandManager wristbandManager, ScanTaskListener listener) {
         super(wristbandManager, new Callback() {
@@ -25,6 +29,7 @@ public class ScanTask extends CommonTask {
             }
         });
         this.listener = listener;
+        devicesMap = new HashMap<>();
     }
 
     @Override
@@ -35,7 +40,10 @@ public class ScanTask extends CommonTask {
             public void onWristbandDeviceFind(BluetoothDevice device, int rssi, byte[] scanRecord) {
                 super.onWristbandDeviceFind(device, rssi, scanRecord);
                 Log.e(TAG, "Device found " + device.getAddress());
-                listener.onDeviceFound(device);
+                if (devicesMap.get(device.getAddress()) == null) {
+                    devicesMap.put(device.getAddress(), true);
+                    listener.onDeviceFound(device);
+                }
             }
 
             @Override
