@@ -40,7 +40,6 @@ public class WifiManager {
                 }
             }
         });
-
     }
 
     public void connectWifi(String ssid, String password) {
