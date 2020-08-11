@@ -1,6 +1,7 @@
 package com.northroom.bhs.nodescanner.manager;
 
 import android.content.Context;
+import android.net.wifi.ScanResult;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -34,12 +35,28 @@ public class WifiManager {
             public void isSuccess(boolean isSuccess) {
                 if (isSuccess) {
                     Log.e(TAG, "WIFI ENABLED");
-                    connectWifi(Configs.WIFI_SSID, Configs.WIFI_PASSWORD);
+                    scanWifis();
                 }  else {
                     Log.e(TAG, "COULDN'T ENABLED WIFI");
                 }
             }
         });
+    }
+
+    private void scanWifis() {
+        Log.e(TAG, "Scan wifi")
+        WifiUtils.withContext(context).scanWifi(scanResults -> {
+            if (scanResults.isEmpty()) {
+                Log.i(TAG, "SCAN RESULTS IT'S EMPTY");
+                return;
+            }
+            Log.i(TAG, "GOT SCAN RESULTS " + scanResults);
+            for (ScanResult result : scanResults) {
+                if (result.SSID.equals(Configs.WIFI_SSID) {
+                    connectWifi(Configs.WIFI_SSID, Configs.WIFI_PASSWORD);
+                }
+            }
+        }).start();
     }
 
     public void connectWifi(String ssid, String password) {
