@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">NodeScanner</string>
-    <string name="app_scan">Connect Wifi</string>
+    <string name="app_scan">Force crash</string>
 </resources>

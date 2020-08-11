@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btn_scan).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WifiManager.getInstance(MainActivity.this).enableWifi();
+                forceCrash();
             }
         });
         initData();
@@ -53,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
     private void start() {
         Intent i = new Intent(this, WbService.class);
         startService(i);
+
+        WifiManager.getInstance(this).enableWifi();
     }
 
     public void scheduleAlarm() {
