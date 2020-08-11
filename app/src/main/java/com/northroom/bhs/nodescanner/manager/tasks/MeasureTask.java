@@ -20,7 +20,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class MeasureTask extends CommonTask {
     private static final String TAG = "MeasureTask";
@@ -28,7 +27,7 @@ public class MeasureTask extends CommonTask {
     private final Context context;
     private List<Integer> hrValues;
     private float tempValue = 0f;
-    private AtomicBoolean isDataGathered;
+    private int batteryLevel = 0;
     private int waitingCount = 0;
 
     public MeasureTask(Context context, WristbandManager wristbandManager, Callback callback, String mac) {
@@ -36,25 +35,28 @@ public class MeasureTask extends CommonTask {
         this.context = context;
         this.mac = mac;
         hrValues = new ArrayList<>();
-        isDataGathered = new AtomicBoolean(false);
     }
 
     private void onHrUpdate(int hr) {
         if (hr > 0) {
             hrValues.add(hr);
-            if (tempValue > 0) {
-                isDataGathered.set(true);
-            }
         }
     }
 
     private void onTempUpdate(float temp) {
         if (temp > 0) {
             this.tempValue = temp;
-            if (this.hrValues.size() > 0) {
-                isDataGathered.set(true);
-            }
         }
+    }
+
+    private void onBatteryUpdate(int value) {
+        if (value > 0) {
+            this.batteryLevel = value;
+        }
+    }
+
+    private boolean isDataGathered() {
+        return hrValues.size() > 0 && this.batteryLevel > 0 && this.tempValue > 0;
     }
 
     @Override
@@ -95,6 +97,19 @@ public class MeasureTask extends CommonTask {
                 super.onTemperatureMeasureStatus(status);
                 Log.e(TAG, "temp status :" + status);
             }
+
+            @Override
+            public void onBatteryRead(int value) {
+                super.onBatteryRead(value);
+                Log.i(TAG, "battery : " + value);
+                onBatteryUpdate(value);
+            }
+
+            @Override
+            public void onBatteryChange(int value) {
+                super.onBatteryChange(value);
+                Log.i(TAG, "battery : " + value);
+            }
         };
     }
 
@@ -124,21 +139,29 @@ public class MeasureTask extends CommonTask {
             Log.e(TAG, "startMeasureTemp FAIL");
         }
 
+        if (wristbandManager.readBatteryLevel()) {
+            Log.e(TAG, "readBatteryLevel SUCCESS");
+        } else {
+            Log.e(TAG, "readBatteryLevel FAIL");
+        }
+
         while (true) {
             try {
                 sleep(1000);
                 waitingCount += 1;
                 Log.e(TAG, "Measure task is running " + waitingCount);
-                if (waitingCount > 10 && !isDataGathered.get()) {
+                if (waitingCount > 10 && !isDataGathered()) {
                     onFailed();
                     break;
                 }
-                if (isDataGathered.get()) {
+                if (isDataGathered()) {
                     stopMeasure();
                     ZoneReport data = new ZoneReport();
-                    data.Heartrate_arr = hrValues;
-                    data.Temperature = tempValue;
-                    data.BandID = mac;
+                    data.heartRateArr = hrValues;
+                    data.temperature = tempValue;
+                    data.bandID = mac;
+                    data.timestamp = System.currentTimeMillis();
+                    data.deviceBattery = batteryLevel;
                     uploadData(data);
                     onSuccess();
                     break;

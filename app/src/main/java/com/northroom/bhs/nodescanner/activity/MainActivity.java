@@ -18,6 +18,7 @@ import androidx.core.content.ContextCompat;
 
 import com.northroom.bhs.nodescanner.AppExceptionHandler;
 import com.northroom.bhs.nodescanner.R;
+import com.northroom.bhs.nodescanner.manager.WifiManager;
 import com.northroom.bhs.nodescanner.receivers.MyAlarmReceiver;
 import com.northroom.bhs.nodescanner.services.WbService;
 
@@ -52,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
     private void start() {
         Intent i = new Intent(this, WbService.class);
         startService(i);
+
+        WifiManager.getInstance(this).enableWifi();
     }
 
     public void scheduleAlarm() {
