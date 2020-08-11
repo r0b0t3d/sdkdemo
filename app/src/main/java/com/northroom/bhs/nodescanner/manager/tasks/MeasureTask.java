@@ -150,7 +150,7 @@ public class MeasureTask extends CommonTask {
                 sleep(1000);
                 waitingCount += 1;
                 Log.e(TAG, "Measure task is running " + waitingCount);
-                if (waitingCount > 10 && !isDataGathered()) {
+                if (waitingCount > 30 && !isDataGathered()) {
                     onFailed();
                     break;
                 }
