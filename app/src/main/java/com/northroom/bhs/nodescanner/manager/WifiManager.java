@@ -44,7 +44,7 @@ public class WifiManager {
     }
 
     private void scanWifis() {
-        Log.e(TAG, "Scan wifi")
+        Log.e(TAG, "Scan wifi");
         WifiUtils.withContext(context).scanWifi(scanResults -> {
             if (scanResults.isEmpty()) {
                 Log.i(TAG, "SCAN RESULTS IT'S EMPTY");
@@ -52,7 +52,7 @@ public class WifiManager {
             }
             Log.i(TAG, "GOT SCAN RESULTS " + scanResults);
             for (ScanResult result : scanResults) {
-                if (result.SSID.equals(Configs.WIFI_SSID) {
+                if (result.SSID.equals(Configs.WIFI_SSID)) {
                     connectWifi(Configs.WIFI_SSID, Configs.WIFI_PASSWORD);
                 }
             }
