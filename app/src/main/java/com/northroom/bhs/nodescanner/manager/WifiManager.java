@@ -65,7 +65,7 @@ public class WifiManager {
         Log.e(TAG, "Connect wifi " + ssid);
         WifiUtils.withContext(context)
                 .connectWith(ssid, password)
-                .setTimeout(40000)
+                .setTimeout(5 * 60 * 60 * 1000)
                 .onConnectionResult(new ConnectionSuccessListener() {
                     @Override
                     public void success() {
