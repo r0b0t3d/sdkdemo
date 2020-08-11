@@ -104,11 +104,13 @@ public class DeviceManager {
             @Override
             public void onSuccess(Object... args) {
                 // Finish
+                Log.e(TAG, "Measure task SUCCESS");
                 disconnect();
             }
 
             @Override
             public void onFailed() {
+                Log.e(TAG, "Measure task FAILED");
                 disconnect();
             }
         }, this.mac);

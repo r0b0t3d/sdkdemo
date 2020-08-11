@@ -19,19 +19,19 @@ public abstract class CommonTask extends Thread {
     abstract WristbandManagerCallback initWristbandManagerCallback();
 
     protected void onSuccess(Object ...params) {
+        wristbandManager.unRegisterCallback(wristbandManagerCallback);
+        callback.onSuccess(params);
         if (!isInterrupted()) {
             interrupt();
         }
-        wristbandManager.unRegisterCallback(wristbandManagerCallback);
-        callback.onSuccess(params);
     }
 
     protected void onFailed() {
+        wristbandManager.unRegisterCallback(wristbandManagerCallback);
+        callback.onFailed();
         if (!isInterrupted()) {
             interrupt();
         }
-        wristbandManager.unRegisterCallback(wristbandManagerCallback);
-        callback.onFailed();
     }
 
     public interface Callback {

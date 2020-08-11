@@ -143,6 +143,7 @@ public class MeasureTask extends CommonTask {
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
+                onFailed();
                 break;
             }
         }
