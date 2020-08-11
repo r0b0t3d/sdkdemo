@@ -15,6 +15,7 @@ public class ScanTask extends CommonTask {
     private static final String TAG = "ScanTask";
     private ScanTaskListener listener;
     private Map<String, Boolean> devicesMap;
+    private final Object lock = new Object();
 
     public ScanTask(WristbandManager wristbandManager, ScanTaskListener listener) {
         super(wristbandManager, new Callback() {
@@ -40,10 +41,7 @@ public class ScanTask extends CommonTask {
             public void onWristbandDeviceFind(BluetoothDevice device, int rssi, byte[] scanRecord) {
                 super.onWristbandDeviceFind(device, rssi, scanRecord);
                 Log.e(TAG, "Device found " + device.getAddress());
-                if (devicesMap.get(device.getAddress()) == null) {
-                    devicesMap.put(device.getAddress(), true);
-                    listener.onDeviceFound(device);
-                }
+                handleDeviceFound(device);
             }
 
             @Override
@@ -70,6 +68,15 @@ public class ScanTask extends CommonTask {
             onSuccess();
         } catch (InterruptedException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void handleDeviceFound(BluetoothDevice device) {
+        synchronized (lock) {
+            if (devicesMap.get(device.getAddress()) == null) {
+                devicesMap.put(device.getAddress(), true);
+                listener.onDeviceFound(device);
+            }
         }
     }
 

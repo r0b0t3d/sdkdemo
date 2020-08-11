@@ -9,10 +9,11 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class LoginTask extends CommonTask {
     private static final String TAG = "LoginTask";
-    private AtomicBoolean isLoggedIn = new AtomicBoolean(false);
+    private AtomicBoolean isLoggedIn;
 
     public LoginTask(WristbandManager wristbandManager, Callback c) {
         super(wristbandManager, c);
+        isLoggedIn = new AtomicBoolean(false);
     }
 
     @Override

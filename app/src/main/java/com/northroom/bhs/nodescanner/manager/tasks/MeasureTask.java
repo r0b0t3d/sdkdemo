@@ -20,6 +20,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class MeasureTask extends CommonTask {
     private static final String TAG = "MeasureTask";
@@ -27,7 +28,7 @@ public class MeasureTask extends CommonTask {
     private final Context context;
     private List<Integer> hrValues;
     private float tempValue = 0f;
-    private boolean isDataGathered = false;
+    private AtomicBoolean isDataGathered;
     private int waitingCount = 0;
 
     public MeasureTask(Context context, WristbandManager wristbandManager, Callback callback, String mac) {
@@ -35,13 +36,14 @@ public class MeasureTask extends CommonTask {
         this.context = context;
         this.mac = mac;
         hrValues = new ArrayList<>();
+        isDataGathered = new AtomicBoolean(false);
     }
 
     private void onHrUpdate(int hr) {
         if (hr > 0) {
             hrValues.add(hr);
             if (tempValue > 0) {
-                isDataGathered = true;
+                isDataGathered.set(true);
             }
         }
     }
@@ -50,7 +52,7 @@ public class MeasureTask extends CommonTask {
         if (temp > 0) {
             this.tempValue = temp;
             if (this.hrValues.size() > 0) {
-                isDataGathered = true;
+                isDataGathered.set(true);
             }
         }
     }
@@ -127,11 +129,11 @@ public class MeasureTask extends CommonTask {
                 sleep(1000);
                 waitingCount += 1;
                 Log.e(TAG, "Measure task is running " + waitingCount);
-                if (waitingCount > 10 && !isDataGathered) {
+                if (waitingCount > 10 && !isDataGathered.get()) {
                     onFailed();
                     break;
                 }
-                if (isDataGathered) {
+                if (isDataGathered.get()) {
                     stopMeasure();
                     ZoneReport data = new ZoneReport();
                     data.Heartrate_arr = hrValues;
