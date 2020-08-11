@@ -28,6 +28,7 @@ public class MeasureTask extends CommonTask {
     private List<Integer> hrValues;
     private float tempValue = 0f;
     private boolean isDataGathered = false;
+    private int waitingCount = 0;
 
     public MeasureTask(Context context, WristbandManager wristbandManager, Callback callback, String mac) {
         super(wristbandManager, callback);
@@ -124,6 +125,12 @@ public class MeasureTask extends CommonTask {
         while (true) {
             try {
                 sleep(1000);
+                waitingCount += 1;
+                Log.e(TAG, "Measure task is running " + waitingCount);
+                if (waitingCount > 10 && !isDataGathered) {
+                    onFailed();
+                    break;
+                }
                 if (isDataGathered) {
                     stopMeasure();
                     ZoneReport data = new ZoneReport();
